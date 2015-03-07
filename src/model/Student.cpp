@@ -36,3 +36,15 @@ Student::~Student() {
 const string& model::Student::getId() const {
 	return ID;
 }
+
+const string& model::Student::getFirstName() const {
+	return firstName;
+}
+
+double model::Student::getGrade() const {
+	return grade;
+}
+
+const string& model::Student::getLastName() const {
+	return lastName;
+}

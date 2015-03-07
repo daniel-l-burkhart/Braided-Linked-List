@@ -30,15 +30,11 @@ public:
 	Student(string firstName, string lastName, string ID, double grade, Student* nextName, Student* nextGrade);
 	virtual ~Student();
 
-	double getGrade() const {
-		return grade;
-	}
-
-	const string& getLastName() const {
-		return lastName;
-	}
 
 	const string& getId() const;
+	const string& getFirstName() const;
+	double getGrade() const;
+	const string& getLastName() const;
 
 	Student* nextName;
 		Student* nextGrade;
