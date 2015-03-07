@@ -186,13 +186,16 @@ vector<Student> BraidedLinkedList::AscendingGrades() {
 }
 
 vector<Student> BraidedLinkedList::ReverseList() {
+	vector<Student> resultingVector = vector<Student>();
 
 	this->makeReverseNameVector(this->pHeadName);
-	return this->reversedList;
+	resultingVector = this->reversedList;
+
+	this->reversedList.clear();
+	return resultingVector;
 }
 
 void BraidedLinkedList::makeReverseNameVector(Student* pStudent) {
-
 	if (pStudent != 0) {
 		this->makeReverseNameVector(pStudent->nextName);
 		this->reversedList.push_back(*pStudent);
@@ -207,9 +210,13 @@ void BraidedLinkedList::makeGradeDescendVector(Student* pStudentGrade) {
 }
 
 vector<Student> BraidedLinkedList::DescendingGrades() {
+	vector<Student> gradesReversed = vector<Student>();
 
 	this->makeGradeDescendVector(this->pHeadGrade);
-	return this->reversedGrades;
+	gradesReversed = this->reversedGrades;
+	this->reversedGrades.clear();
+
+	return gradesReversed;
 }
 
 } /* namespace model */
