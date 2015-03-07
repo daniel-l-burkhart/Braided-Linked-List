@@ -6,6 +6,7 @@
  */
 
 #include <fileInputAndOutput.h>
+#include <Student.h>
 #include <fstream>
 #include <string>
 #include <vector>
@@ -24,35 +25,55 @@ fileInputAndOutput::~fileInputAndOutput() {
 	// TODO Auto-generated destructor stub
 }
 
-vector<string> fileInputAndOutput::loadFromFile(string file){
+void fileInputAndOutput::loadFromFile(string file){
+
 	vector<string> stringVector;
+
 	ifstream infile(file.c_str());
 
+	while(infile.is_open()){
 
-
-	while(!infile.is_open()){
-		size_t pos = 0;
-		string delimiter = ",";
+		char delimiter = ',';
 		string line;
-		string currentWord;
 
-		getline(infile, line);
-		while((pos = line.find(delimiter)) != std::string::npos){
-			currentWord = line.substr(0, pos);
-			stringVector.push_back(currentWord);
-		}
+
+		getline(infile, line, '\n');
+
+		this->split(line, delimiter, stringVector);
+
+		int grade;
+		istringstream convert(stringVector[3]);
+		convert >> grade;
+
+		this->student.CreateStudent(stringVector[0], stringVector[1], stringVector[2], grade);
+
+		stringVector.clear();
+		line.clear();
+
 	}
 
-	string lastName;
-	string firstName;
-	string ID;
-	string stringGrade;
-	int grade = 0;
+}
 
+void fileInputAndOutput::split(string line, char c,
+		vector<string> studentData) {
+	int i = 0;
+	int j = line.find(c);
 
+	while (j >= 0){
+		studentData.push_back(line.substr(i, j-i));
+		i = ++j;
+		j = line.find(c, j);
 
-return stringVector;
+		if(j < 0){
+			studentData.push_back(line.substr(i, line.length()));
+		}
+	}
+}
+
+void fileInputAndOutput::saveToFile(string file, Student* pHead) {
 
 }
 
 } /* namespace model */
+
+

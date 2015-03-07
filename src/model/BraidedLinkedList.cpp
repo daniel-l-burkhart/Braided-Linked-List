@@ -14,18 +14,50 @@ BraidedLinkedList::BraidedLinkedList() {
 	pTail = 0;
 }
 
-void BraidedLinkedList::InsertStudentName(Student *pStudent) {
+void BraidedLinkedList::insertStudentName(Student *pStudent) {
 	if (pHead == 0) {
 		this->pHead = pStudent;
-	} else {
+	}
+
+	else {
 		Student* pCurrent = this->pHead;
 		Student* pPrevious = this->pHead;
+
 		while (pCurrent != 0) {
+
 			if (pStudent->getLastName() < pCurrent->getLastName()) {
 				pPrevious = pStudent;
 				pStudent->nextName = pCurrent;
 				return;
-			} else {
+			}
+
+			else {
+				pPrevious = pCurrent;
+				pCurrent = pStudent->nextName;
+			}
+		}
+	}
+}
+
+void BraidedLinkedList::insertStudentGrade(Student *pStudent) {
+
+	if (pHead == 0) {
+		this->pHead = pStudent;
+	}
+
+	else {
+		Student* pCurrent = this->pHead;
+		Student* pPrevious = this->pHead;
+
+		while (pCurrent != 0) {
+
+			if (pStudent->getGrade() < pCurrent->getGrade()) {
+				pPrevious = pStudent;
+				pStudent->nextName = pCurrent;
+				return;
+			}
+
+			else {
 				pPrevious = pCurrent;
 				pCurrent = pStudent->nextName;
 			}
@@ -86,10 +118,12 @@ bool BraidedLinkedList::DeleteStudentName(string studentID) {
 
 }
 
-Student* BraidedLinkedList::CreateStudent(string firstName, string lastName,
+void BraidedLinkedList::CreateStudent(string firstName, string lastName,
 		string ID, int grade) {
 	Student *createdStudent = new Student(firstName, lastName, ID, grade, 0, 0);
-	return createdStudent;
+
+	this->insertStudentName(createdStudent);
+	this->insertStudentGrade(createdStudent);
 }
 
 BraidedLinkedList::~BraidedLinkedList() {
@@ -103,4 +137,9 @@ BraidedLinkedList::~BraidedLinkedList() {
 	}
 }
 
+void model::BraidedLinkedList::CreateListFromFile(
+		vector<Student> vectorOfStudents) {
+}
+
 } /* namespace model */
+

@@ -19,14 +19,17 @@ class BraidedLinkedList {
 private:
 	Student* pHead;
 	Student* pTail;
+	void insertStudentName(Student* pStudent);
+	void insertStudentGrade(Student* pStudent);
 
 public:
 	BraidedLinkedList();
 	virtual ~BraidedLinkedList();
-	void InsertStudentName(Student* pStudent);
+
 	bool DeleteStudentName(string studentID);
-	Student* CreateStudent(string firstName, string lastName, string ID,
+	void CreateStudent(string firstName, string lastName, string ID,
 			int grade);
+	void CreateListFromFile(vector<Student> vectorOfStudents);
 };
 
 } /* namespace model */

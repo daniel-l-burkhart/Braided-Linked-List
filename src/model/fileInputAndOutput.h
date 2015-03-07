@@ -16,11 +16,15 @@ using namespace std;
 namespace model {
 
 class fileInputAndOutput {
+private:
+	BraidedLinkedList student;
+	void split(string line, char c, vector<string> studentData);
 public:
 	fileInputAndOutput();
 	virtual ~fileInputAndOutput();
 
-	vector<string> loadFromFile(string file);
+	void loadFromFile(string file);
+	void saveToFile(string file, Student* pHead);
 
 };
 

@@ -6,7 +6,10 @@
  */
 
 #include <GradeBraiderController.h>
+#include <Student.h>
 #include <string>
+
+using model::Student;
 
 using namespace std;
 
@@ -24,8 +27,9 @@ GradeBraiderController::~GradeBraiderController() {
 }
 
 vector<string> GradeBraiderController::loadFile(string inFile){
-	vector<string> resultVector;
+	vector<Student> resultVector;
 	resultVector = ioVariable.loadFromFile(inFile);
+	this->list.CreateListFromFile(resultVector);
 	return resultVector;
 }
 
