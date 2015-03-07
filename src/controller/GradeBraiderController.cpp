@@ -7,7 +7,10 @@
 
 #include <GradeBraiderController.h>
 #include <Student.h>
+#include <iosfwd>
 #include <string>
+#include <fstream>
+#include <vector>
 
 using model::Student;
 
@@ -26,11 +29,10 @@ GradeBraiderController::~GradeBraiderController() {
 	// TODO Auto-generated destructor stub
 }
 
-vector<string> GradeBraiderController::loadFile(string inFile){
+void GradeBraiderController::loadFile(string inFile){
 	vector<Student> resultVector;
-	resultVector = ioVariable.loadFromFile(inFile);
-	this->list.CreateListFromFile(resultVector);
-	return resultVector;
+	this->ioVariable.loadFromFile(inFile);
+
 }
 
 string controller::GradeBraiderController::saveFile(string file) {
@@ -62,20 +64,20 @@ string controller::GradeBraiderController::deleteStudent(string studentID) {
 
 }
 
-string controller::GradeBraiderController::alphabeticList() {
-	return "";
+vector<Student> GradeBraiderController::alphabeticList() {
+	return this->list.AlphabeticList();
 }
 
-string controller::GradeBraiderController::reverseAlphabetic() {
-	return "";
+vector<Student> GradeBraiderController::reverseAlphabetic() {
+	return this->list.ReverseList();
 }
 
-string controller::GradeBraiderController::gradeAscending() {
-	return "";
+vector<Student> controller::GradeBraiderController::gradeAscending() {
+	return this->list.AscendingGrades();
 }
 
-string controller::GradeBraiderController::gradeDescending() {
-	return "";
+vector<Student> controller::GradeBraiderController::gradeDescending() {
+	return this->list.DescendingGrades();
 }
 
 } /* namespace controller */

@@ -17,10 +17,20 @@ namespace model {
 
 class BraidedLinkedList {
 private:
-	Student* pHead;
-	Student* pTail;
+	Student* pHeadName;
+	Student* pHeadGrade;
+	Student* pTailName;
+	Student* pTailGrade;
+
+	vector<Student> reversedList;
+	vector<Student> reversedGrades;
+
 	void insertStudentName(Student* pStudent);
 	void insertStudentGrade(Student* pStudent);
+	void makeGradeVector(Student* pCurrent, vector<Student>& studentGrades);
+	void makeNameVector(Student* pCurrent, vector<Student>& students);
+	void makeReverseNameVector(Student* pHead);
+	void makeGradeDescendVector(Student* pStudentGrade);
 
 public:
 	BraidedLinkedList();
@@ -30,6 +40,11 @@ public:
 	void CreateStudent(string firstName, string lastName, string ID,
 			int grade);
 	void CreateListFromFile(vector<Student> vectorOfStudents);
+
+	vector<Student> AlphabeticList();
+	vector<Student> AscendingGrades();
+	vector<Student> ReverseList();
+	vector<Student> DescendingGrades();
 };
 
 } /* namespace model */

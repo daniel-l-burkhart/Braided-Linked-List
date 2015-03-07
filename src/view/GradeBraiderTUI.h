@@ -8,7 +8,9 @@
 #ifndef VIEW_GRADEBRAIDERTUI_H_
 #define VIEW_GRADEBRAIDERTUI_H_
 #include <GradeBraiderController.h>
+#include <Student.h>
 #include <string>
+#include <vector>
 
 using controller::GradeBraiderController;
 using std::string;
@@ -20,6 +22,7 @@ class GradeBraiderTUI {
 private:
 
 	GradeBraiderController controller;
+	void outputVector(vector<Student> studentVector);
 
 public:
 	GradeBraiderTUI();

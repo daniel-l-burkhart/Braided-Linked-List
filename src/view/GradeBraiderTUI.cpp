@@ -7,9 +7,11 @@
 
 #include <GradeBraiderController.h>
 #include <GradeBraiderTUI.h>
+#include <Student.h>
 #include <cstdlib>
 #include <iosfwd>
 #include <iostream>
+#include <vector>
 
 using controller::GradeBraiderController;
 using namespace controller;
@@ -50,27 +52,43 @@ void GradeBraiderTUI::mainMenu() {
 	cout << endl;
 }
 
+void GradeBraiderTUI::outputVector(vector<Student> studentVector) {
+
+	for (vector<Student>::size_type i = 0; i < studentVector.size(); i++) {
+		cout << studentVector[i].getLastName() << " "
+				<< studentVector[i].getFirstName() << " "
+				<< studentVector[i].getId() << " "
+				<< studentVector[i].getGrade() << endl;
+	}
+}
+
 void GradeBraiderTUI::handleSelection(string input) {
 	char userInput;
 	userInput = input[0];
 	userInput = tolower(userInput);
 
+	vector<Student> resultVector = vector<Student>();
+
 	string file;
 
-	switch(userInput){
-	case 'l':{
-		cout << "Please enter the name of the file that you would like to load in" << endl;
+	switch (userInput) {
+	case 'l': {
+		cout
+				<< "Please enter the name of the file that you would like to load in"
+				<< endl;
 		cin >> file;
 		this->controller.loadFile(file);
 		break;
 	}
-	case 's':{
-		cout << "Please enter the name of the file that you would like to save the list as. " << endl;
+	case 's': {
+		cout
+				<< "Please enter the name of the file that you would like to save the list as. "
+				<< endl;
 		cin >> file;
 		this->controller.saveFile(file);
 		break;
 	}
-	case 'i':{
+	case 'i': {
 
 		string firstName;
 		string lastName;
@@ -96,40 +114,46 @@ void GradeBraiderTUI::handleSelection(string input) {
 		this->controller.insertStudent(firstName, lastName, id, grade);
 		break;
 	}
-	case 'd':{
+	case 'd': {
 		string studentID;
-		cout << "Please enter the student ID of the student you would like to remove: "<<endl;
+		cout
+				<< "Please enter the student ID of the student you would like to remove: "
+				<< endl;
 		cin >> studentID;
 		cout << this->controller.deleteStudent(studentID);
 		break;
 	}
 
-	case 'a':{
-		cout << "The students in alphabetic order are: "<< endl;
-		cout << this->controller.alphabeticList();
+	case 'a': {
+		cout << "The students in alphabetic order are: " << endl;
+		resultVector = this->controller.alphabeticList();
+		this->outputVector(resultVector);
 		break;
 	}
 
-	case 'r':{
-		cout << "The students in reverse alphabetic order are: "<< endl;
-		cout << this->controller.reverseAlphabetic();
+	case 'r': {
+		cout << "The students in reverse alphabetic order are: " << endl;
+		resultVector = this->controller.reverseAlphabetic();
+		this->outputVector(resultVector);
 		break;
 	}
 
-	case 'g':{
+	case 'g': {
 		cout << "The students in grade ascending are: " << endl;
-		cout << this->controller.gradeAscending();
+		resultVector = this->controller.gradeAscending();
+		this->outputVector(resultVector);
 		break;
 	}
 
-	case 'c':{
+	case 'c': {
 		cout << "The students in grade descending are: " << endl;
-		cout << this->controller.gradeDescending();
+		resultVector = this->controller.gradeDescending();
+		this->outputVector(resultVector);
 		break;
 	}
 
-	case 'q':{
-		cout << "Good bye." <<endl;
+	case 'q': {
+		cout << "Good bye." << endl;
 		exit(0);
 		break;
 	}

@@ -9,29 +9,35 @@
 #define CONTROLLER_GRADEBRAIDERCONTROLLER_H_
 #include <BraidedLinkedList.h>
 #include <fileInputAndOutput.h>
+#include <GradeBraiderController.h>
+#include <Student.h>
 #include <string>
 #include <vector>
 
 using model::BraidedLinkedList;
 using model::fileInputAndOutput;
+using model::Student;
 
 namespace controller {
 
 class GradeBraiderController {
+
 private:
 	fileInputAndOutput ioVariable;
 	BraidedLinkedList list;
+
 public:
 	GradeBraiderController();
 	virtual ~GradeBraiderController();
-	vector<string> loadFile(string file);
+	void loadFile(string file);
 	string saveFile(string file);
 	string insertStudent(string firstName, string lastName, string ID, int grade);
 	string deleteStudent(string studentID);
-	string alphabeticList();
-	string reverseAlphabetic();
-	string gradeAscending();
-	string gradeDescending();
+
+	vector<Student> alphabeticList();
+	vector<Student> reverseAlphabetic();
+	vector<Student> gradeAscending();
+	vector<Student> gradeDescending();
 
 
 };
