@@ -28,8 +28,7 @@ fileInputAndOutput::fileInputAndOutput() {
  * destructor of class. closes files
  */
 fileInputAndOutput::~fileInputAndOutput() {
-	this->inputStream.close();
-	this->outputStream.close();
+
 }
 
 /**
@@ -40,15 +39,15 @@ fileInputAndOutput::~fileInputAndOutput() {
 void fileInputAndOutput::loadFromFile(string file) {
 
 	vector<string> stringVector;
+	ifstream input(file.c_str());
 
-	this->inputStream(file.c_str());
 
-	while (this->inputStream.is_open()) {
+	while (input.is_open()) {
 
 		char delimiter = ',';
 		string line;
 
-		getline(this->inputStream, line, '\n');
+		getline(input, line, '\n');
 
 		this->split(line, delimiter, stringVector);
 
@@ -63,6 +62,8 @@ void fileInputAndOutput::loadFromFile(string file) {
 		line.clear();
 
 	}
+
+	input.close();
 
 }
 
@@ -100,13 +101,16 @@ void fileInputAndOutput::split(string line, char c,
  */
 void fileInputAndOutput::saveToFile(string file, Student* pHead) {
 
-	this->outputStream(file.c_str());
+	ofstream outputFile(file.c_str());
+
 
 	for (Student *pTemp = pHead; pTemp != 0; pTemp = pTemp->nextName) {
-		this->outputStream << pTemp->getLastName() << ","
+		outputFile << pTemp->getLastName() << ","
 				<< pTemp->getFirstName() << "," << pTemp->getId() << ","
 				<< pTemp->getGrade() << endl;
 	}
+
+	outputFile.close();
 }
 
 } /* namespace model */

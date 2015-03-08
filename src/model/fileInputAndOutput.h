@@ -19,8 +19,7 @@ namespace model {
 
 class fileInputAndOutput {
 private:
-	ifstream inputStream;
-	ofstream outputStream;
+
 	BraidedLinkedList student;
 	void split(string line, char c, vector<string> studentData);
 public:

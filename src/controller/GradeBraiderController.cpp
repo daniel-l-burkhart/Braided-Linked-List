@@ -53,9 +53,6 @@ void GradeBraiderController::loadFile(string inFile) {
  */
 string controller::GradeBraiderController::saveFile(string file) {
 
-	fstream saveFile;
-
-	//saveFile.open(file.c_str(), ios_base::out| file.c_str(), ios_base::in);
 
 	string saveStatus;
 	saveStatus = "File was saved successfully";
