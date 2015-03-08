@@ -24,12 +24,14 @@ private:
 	GradeBraiderController controller;
 	void outputVector(vector<Student> studentVector);
 
+	void mainMenu();
+	void handleSelection(string userSelection);
+
 public:
 	GradeBraiderTUI();
 	virtual ~GradeBraiderTUI();
 	void runMenuSystem();
-	void mainMenu();
-	void handleSelection(string userSelection);
+
 };
 
 } /* namespace view */

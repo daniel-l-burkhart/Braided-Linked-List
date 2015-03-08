@@ -6,13 +6,15 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
-#include <GradeBraiderController.h>
+
+#include <GradeBraiderTUI.h>
 #include <iostream>
 #include<fstream>
 #include <vector>
 #include <string>
 
 using controller::GradeBraiderController;
+using view::GradeBraiderTUI;
 
 using namespace std;
 
@@ -26,13 +28,11 @@ using namespace std;
  * 0 if successful.
  */
 int main(int argc, const char * argv[]) {
-	GradeBraiderController controller;
+	GradeBraiderTUI tui;
 	vector<string> stringVector;
 
-	if (argc != 2)
 
-		cout << "usage: " << argv[0] << " <filename>\n";
-	else {
+	if(argc == 2){
 
 		ifstream the_file(argv[1]);
 
@@ -47,6 +47,9 @@ int main(int argc, const char * argv[]) {
 
 		}
 
+	} else{
+		tui.runMenuSystem();
 	}
+
 	return 0;
 }

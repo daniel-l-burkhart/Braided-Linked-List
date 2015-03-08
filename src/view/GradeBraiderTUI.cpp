@@ -38,11 +38,17 @@ void GradeBraiderTUI::runMenuSystem() {
 	mainMenu();
 
 	cin >> input;
+
 	while (input.length() != 1) {
 		mainMenu();
 		cin >> input;
 	}
+	while(input != "q"){
+
 	handleSelection(input);
+	mainMenu();
+	cin >> input;
+	}
 
 }
 
@@ -147,7 +153,7 @@ void GradeBraiderTUI::handleSelection(string input) {
 		break;
 	}
 
-	case 'r': {
+	case 'v': {
 		cout << "The students in reverse alphabetic order are: " << endl;
 		resultVector = this->controller.reverseAlphabetic();
 		this->outputVector(resultVector);
