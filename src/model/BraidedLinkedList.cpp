@@ -9,6 +9,9 @@
 
 namespace model {
 
+/**
+ * Constructor of the class. Initializes everything to 0
+ */
 BraidedLinkedList::BraidedLinkedList() {
 	this->pHeadName = 0;
 	this->pHeadGrade = 0;
@@ -16,6 +19,11 @@ BraidedLinkedList::BraidedLinkedList() {
 	this->pTailName = 0;
 }
 
+/**
+ * inserts student and sets Name pointers
+ * @param pStudent
+ * the pointer to the current student.
+ */
 void BraidedLinkedList::insertStudentName(Student *pStudent) {
 	if (this->pHeadName == 0) {
 		this->pHeadName = pStudent;
@@ -41,6 +49,11 @@ void BraidedLinkedList::insertStudentName(Student *pStudent) {
 	}
 }
 
+/**
+ * Inserts student and sets grade pointers.
+ * @param pStudent
+ * The current student pointer.
+ */
 void BraidedLinkedList::insertStudentGrade(Student *pStudent) {
 
 	if (this->pHeadGrade == 0) {
@@ -67,6 +80,13 @@ void BraidedLinkedList::insertStudentGrade(Student *pStudent) {
 	}
 }
 
+/**
+ * finds student with passed in ID and deletes that object from the list.
+ * @param studentID
+ * the student ID
+ * @return
+ * true if ID was in list, false otherwise.
+ */
 bool BraidedLinkedList::DeleteStudentName(string studentID) {
 
 	Student *pStudentToDelete;
@@ -122,6 +142,17 @@ bool BraidedLinkedList::DeleteStudentName(string studentID) {
 
 }
 
+/**
+ * Creates a new student object.
+ * @param firstName
+ * The student's first name
+ * @param lastName
+ * The student's last name
+ * @param ID
+ * The student's ID
+ * @param grade
+ * The student's grade.
+ */
 void BraidedLinkedList::CreateStudent(string firstName, string lastName,
 		string ID, int grade) {
 	Student *createdStudent = new Student(firstName, lastName, ID, grade, 0, 0);
@@ -141,9 +172,13 @@ BraidedLinkedList::~BraidedLinkedList() {
 	}
 }
 
-void BraidedLinkedList::CreateListFromFile(vector<Student> vectorOfStudents) {
-}
-
+/**
+ * makes vector of students in list to be output to the user
+ * @param pCurrent
+ * The current pointer.
+ * @param students
+ * The vector of students
+ */
 void BraidedLinkedList::makeNameVector(Student* pCurrent,
 		vector<Student>& students) {
 	while (pCurrent != 0) {
@@ -153,6 +188,11 @@ void BraidedLinkedList::makeNameVector(Student* pCurrent,
 	}
 }
 
+/**
+ * creates and returns vector of students to be returned to the user in an alphabetized listing.
+ * @return
+ * a vector of students in alphabetical order.
+ */
 vector<Student> BraidedLinkedList::AlphabeticList() {
 	vector<Student> students = vector<Student>();
 
@@ -164,6 +204,13 @@ vector<Student> BraidedLinkedList::AlphabeticList() {
 	return students;
 }
 
+/**
+ * makes the vector for the grades ascending
+ * @param pCurrent
+ * current pointer
+ * @param studentGrades
+ * vector of students
+ */
 void BraidedLinkedList::makeGradeVector(Student* pCurrent,
 		vector<Student>& studentGrades) {
 	while (pCurrent != 0) {
@@ -173,6 +220,11 @@ void BraidedLinkedList::makeGradeVector(Student* pCurrent,
 	}
 }
 
+/**
+ * makes and returns the vector of students in ascending grades.
+ * @return
+ * vector of students ordered by ascending grades.
+ */
 vector<Student> BraidedLinkedList::AscendingGrades() {
 	vector<Student> studentGrades = vector<Student>();
 
@@ -185,6 +237,11 @@ vector<Student> BraidedLinkedList::AscendingGrades() {
 	return studentGrades;
 }
 
+/**
+ * reverses the list of students by name
+ * @return
+ * the list of students in reverse order
+ */
 vector<Student> BraidedLinkedList::ReverseList() {
 	vector<Student> resultingVector = vector<Student>();
 
@@ -195,6 +252,11 @@ vector<Student> BraidedLinkedList::ReverseList() {
 	return resultingVector;
 }
 
+/**
+ * creates the vector that reverses the students
+ * @param pStudent
+ * the current student pointer
+ */
 void BraidedLinkedList::makeReverseNameVector(Student* pStudent) {
 	if (pStudent != 0) {
 		this->makeReverseNameVector(pStudent->nextName);
@@ -202,6 +264,11 @@ void BraidedLinkedList::makeReverseNameVector(Student* pStudent) {
 	}
 }
 
+/**
+ * creates the vector that reverses the students by grade
+ * @param pStudentGrade
+ * current student pointer to grade.
+ */
 void BraidedLinkedList::makeGradeDescendVector(Student* pStudentGrade) {
 	if (pStudentGrade != 0) {
 		this->makeGradeDescendVector(pStudentGrade->nextGrade);
@@ -209,6 +276,11 @@ void BraidedLinkedList::makeGradeDescendVector(Student* pStudentGrade) {
 	}
 }
 
+/**
+ * reverses the list of students ordered by grade to be output by the user.
+ * @return
+ * a vector with the students in descending order by grade.
+ */
 vector<Student> BraidedLinkedList::DescendingGrades() {
 	vector<Student> gradesReversed = vector<Student>();
 

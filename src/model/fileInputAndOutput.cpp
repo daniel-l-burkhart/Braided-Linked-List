@@ -16,27 +16,39 @@ using namespace std;
 
 namespace model {
 
+/**
+ * constructor of class
+ */
 fileInputAndOutput::fileInputAndOutput() {
 	// TODO Auto-generated constructor stub
 
 }
 
+/**
+ * destructor of class. closes files
+ */
 fileInputAndOutput::~fileInputAndOutput() {
-	// TODO Auto-generated destructor stub
+	this->inputStream.close();
+	this->outputStream.close();
 }
 
+/**
+ * loads student objects from file.
+ * @param file
+ * the file to be loaded
+ */
 void fileInputAndOutput::loadFromFile(string file) {
 
 	vector<string> stringVector;
 
-	ifstream infile(file.c_str());
+	this->inputStream(file.c_str());
 
-	while (infile.is_open()) {
+	while (this->inputStream.is_open()) {
 
 		char delimiter = ',';
 		string line;
 
-		getline(infile, line, '\n');
+		getline(this->inputStream, line, '\n');
 
 		this->split(line, delimiter, stringVector);
 
@@ -54,6 +66,15 @@ void fileInputAndOutput::loadFromFile(string file) {
 
 }
 
+/**
+ * splits the string based on the comma
+ * @param line
+ * the passed in string
+ * @param c
+ * the char delimiter
+ * @param studentData
+ * the vector of data from the line
+ */
 void fileInputAndOutput::split(string line, char c,
 		vector<string> studentData) {
 	int i = 0;
@@ -70,13 +91,21 @@ void fileInputAndOutput::split(string line, char c,
 	}
 }
 
+/**
+ * saves current list to file
+ * @param file
+ * the file to be saved
+ * @param pHead
+ * the head pointer of the list.
+ */
 void fileInputAndOutput::saveToFile(string file, Student* pHead) {
 
-	ofstream os(file.c_str());
+	this->outputStream(file.c_str());
 
 	for (Student *pTemp = pHead; pTemp != 0; pTemp = pTemp->nextName) {
-		os << pTemp->getLastName() << "," << pTemp->getFirstName() << ","
-				<< pTemp->getId() << "," << pTemp->getGrade() << endl;
+		this->outputStream << pTemp->getLastName() << ","
+				<< pTemp->getFirstName() << "," << pTemp->getId() << ","
+				<< pTemp->getGrade() << endl;
 	}
 }
 

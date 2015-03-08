@@ -27,6 +27,9 @@ GradeBraiderTUI::GradeBraiderTUI() {
 
 }
 
+/**
+ * initial menu the user sees on start up.
+ */
 void GradeBraiderTUI::runMenuSystem() {
 	string input;
 	string file;
@@ -43,6 +46,9 @@ void GradeBraiderTUI::runMenuSystem() {
 
 }
 
+/**
+ * The main menuing system.
+ */
 void GradeBraiderTUI::mainMenu() {
 	cout << "Please enter the desired action: (l)oad file, (s)ave file, "
 			<< endl
@@ -52,6 +58,11 @@ void GradeBraiderTUI::mainMenu() {
 	cout << endl;
 }
 
+/**
+ * outputs a vector to the user with formatting.
+ * @param studentVector
+ * The passed in vector.
+ */
 void GradeBraiderTUI::outputVector(vector<Student> studentVector) {
 
 	for (vector<Student>::size_type i = 0; i < studentVector.size(); i++) {
@@ -62,6 +73,11 @@ void GradeBraiderTUI::outputVector(vector<Student> studentVector) {
 	}
 }
 
+/**
+ * handles the selection made by the user
+ * @param input
+ * the input string from the user.
+ */
 void GradeBraiderTUI::handleSelection(string input) {
 	char userInput;
 	userInput = input[0];
@@ -161,6 +177,9 @@ void GradeBraiderTUI::handleSelection(string input) {
 	}
 }
 
+/**
+ * Destructor of class
+ */
 GradeBraiderTUI::~GradeBraiderTUI() {
 	// TODO Auto-generated destructor stub
 }

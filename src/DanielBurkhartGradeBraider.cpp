@@ -16,10 +16,18 @@ using controller::GradeBraiderController;
 
 using namespace std;
 
+/**
+ * Main method of program
+ * @param argc
+ * arg count
+ * @param argv
+ * the args passed in through the command line
+ * @return
+ * 0 if successful.
+ */
 int main(int argc, const char * argv[]) {
 	GradeBraiderController controller;
 	vector<string> stringVector;
-
 
 	if (argc != 2)
 
