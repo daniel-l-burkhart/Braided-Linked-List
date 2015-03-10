@@ -75,8 +75,11 @@ string controller::GradeBraiderController::saveFile(string file) {
 string controller::GradeBraiderController::insertStudent(string firstName,
 		string lastName, string ID, int grade) {
 
-	this->list.CreateStudent(firstName, lastName, ID, grade);
+	if(this->list.CreateStudent(firstName, lastName, ID, grade)){
 	return "Student Created successfully";
+	}else{
+		return "Student was not created.";
+	}
 }
 
 /**

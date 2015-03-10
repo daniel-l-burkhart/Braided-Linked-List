@@ -41,29 +41,30 @@ void fileInputAndOutput::loadFromFile(string file) {
 	vector<string> stringVector;
 	ifstream input(file.c_str());
 
-
-	while (input.is_open()) {
-
-		char delimiter = ',';
+	if (input.is_open()) {
 		string line;
+		while (getline(input, line)) {
 
-		getline(input, line, '\n');
+			char delimiter = ',';
 
-		this->split(line, delimiter, stringVector);
+			getline(input, line, '\n');
 
-		int grade;
-		istringstream convert(stringVector[3]);
-		convert >> grade;
+			this->split(line, delimiter, stringVector);
 
-		this->student.CreateStudent(stringVector[0], stringVector[1],
-				stringVector[2], grade);
+			double grade;
+			istringstream convert(stringVector[3]);
+			convert >> grade;
 
-		stringVector.clear();
-		line.clear();
+			this->student.CreateStudent(stringVector[0], stringVector[1],
+					stringVector[2], grade);
 
+			stringVector.clear();
+			line.clear();
+
+		}
+
+		input.close();
 	}
-
-	input.close();
 
 }
 
@@ -103,11 +104,9 @@ void fileInputAndOutput::saveToFile(string file, Student* pHead) {
 
 	ofstream outputFile(file.c_str());
 
-
 	for (Student *pTemp = pHead; pTemp != 0; pTemp = pTemp->nextName) {
-		outputFile << pTemp->getLastName() << ","
-				<< pTemp->getFirstName() << "," << pTemp->getId() << ","
-				<< pTemp->getGrade() << endl;
+		outputFile << pTemp->getLastName() << "," << pTemp->getFirstName()
+				<< "," << pTemp->getId() << "," << pTemp->getGrade() << endl;
 	}
 
 	outputFile.close();

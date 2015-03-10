@@ -32,13 +32,16 @@ private:
 
 	void makeReverseNameVector(Student* pHead);
 	void makeGradeDescendVector(Student* pStudentGrade);
+	void checkForTail(Student* pDeletePtr, Student* pPrevious);
+	void checkForPreviousGrade(Student* pPrevious, Student* pStudent);
+	void checkForPreviousName(Student* pPrevious, Student* pStudent);
 
 public:
 	BraidedLinkedList();
 	virtual ~BraidedLinkedList();
 
 	bool DeleteStudentName(string studentID);
-	void CreateStudent(string firstName, string lastName, string ID,
+	bool CreateStudent(string firstName, string lastName, string ID,
 			int grade);
 	void CreateListFromFile(vector<Student> vectorOfStudents);
 

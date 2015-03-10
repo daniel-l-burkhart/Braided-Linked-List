@@ -28,24 +28,26 @@ using namespace std;
  * 0 if successful.
  */
 int main(int argc, const char * argv[]) {
+	GradeBraiderController controller;
 	GradeBraiderTUI tui;
 	vector<string> stringVector;
 
 
 	if(argc == 2){
-
-		ifstream the_file(argv[1]);
-
-		if (!the_file.is_open())
-			cout << "Could not open file\n";
-		else {
-			string x;
-
-			while (getline(the_file, x)) {
-				cout << x;
-			}
-
-		}
+//
+//		ifstream the_file(argv[1]);
+//
+//		if (!the_file.is_open())
+//			cout << "Could not open file\n";
+//		else {
+//			string x;
+//
+//			while (getline(the_file, x)) {
+//				cout << x;
+//			}
+//
+//		}
+		controller.loadFile(argv[1]);
 
 	} else{
 		tui.runMenuSystem();

@@ -32,22 +32,20 @@ GradeBraiderTUI::GradeBraiderTUI() {
  */
 void GradeBraiderTUI::runMenuSystem() {
 	string input;
-	string file;
 	cout << "Welcome to Daniel Burkhart's grade braider" << endl;
 
-	mainMenu();
+	while (true) {
 
-	cin >> input;
-
-	while (input.length() != 1) {
-		mainMenu();
+		this->mainMenu();
 		cin >> input;
-	}
-	while(input != "q"){
 
-	handleSelection(input);
-	mainMenu();
-	cin >> input;
+		while (input.length() != 1) {
+			cout << endl << "I'm sorry. That input is invalid. Please try again"
+					<< endl;
+			this->mainMenu();
+			cin >> input;
+		}
+		this->handleSelection(input);
 	}
 
 }
@@ -56,12 +54,11 @@ void GradeBraiderTUI::runMenuSystem() {
  * The main menuing system.
  */
 void GradeBraiderTUI::mainMenu() {
-	cout << "Please enter the desired action: (l)oad file, (s)ave file, "
+	cout << endl
+			<< "Please enter the desired action: (l)oad file, (s)ave file, "
 			<< endl
 			<< "(i)nsert, (d)elete, (a)lphabetic, re(v)erse alphabetic, "
-			<< endl << "(g)rade ascending, grade des(c)ending, (q)uit >"
-			<< endl;
-	cout << endl;
+			<< endl << "(g)rade ascending, grade des(c)ending, (q)uit >";
 }
 
 /**
@@ -115,14 +112,16 @@ void GradeBraiderTUI::handleSelection(string input) {
 		string firstName;
 		string lastName;
 		string id;
-		int grade;
+		double grade;
 
 		cout << "Please enter the first name: ";
 		cin >> firstName;
+		firstName = this->lowerCaseString(firstName);
 		cout << endl;
 
 		cout << "Please enter the last name: ";
 		cin >> lastName;
+		lastName = this->lowerCaseString(lastName);
 		cout << endl;
 
 		cout << "Please enter the ID: ";
@@ -130,10 +129,15 @@ void GradeBraiderTUI::handleSelection(string input) {
 		cout << endl;
 
 		cout << "Please enter the grade: ";
-		cin >> grade;
+		while (!(cin >> grade)) {
+			cin.clear();
+			cout << "Please enter a number for the grade." << endl;
+		}
+
 		cout << endl;
 
-		this->controller.insertStudent(firstName, lastName, id, grade);
+		cout << this->controller.insertStudent(firstName, lastName, id, grade)
+				<< endl;
 		break;
 	}
 	case 'd': {
@@ -180,7 +184,27 @@ void GradeBraiderTUI::handleSelection(string input) {
 		break;
 	}
 
+	default: {
+		cout << endl << "I'm sorry. That input is invalid. Please try again"
+				<< endl;
 	}
+
+	}
+}
+
+/**
+ * Method to keep all names lower case for sorting
+ * @param input
+ * the string input
+ * @return
+ * a lower case equivalent of the input string
+ */
+string GradeBraiderTUI::lowerCaseString(string input) {
+	string result;
+	for (int i = 0; input[i]; i++) {
+		input[i] = tolower(input[i]);
+	}
+	return input;
 }
 
 /**

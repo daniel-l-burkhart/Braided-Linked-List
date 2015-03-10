@@ -26,6 +26,7 @@ private:
 
 	void mainMenu();
 	void handleSelection(string userSelection);
+	string lowerCaseString(string input);
 
 public:
 	GradeBraiderTUI();
