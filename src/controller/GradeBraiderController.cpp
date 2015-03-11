@@ -5,6 +5,7 @@
  *      Author: dburkha1
  */
 
+#include <fileInputAndOutput.h>
 #include <GradeBraiderController.h>
 #include <Student.h>
 #include <iosfwd>
@@ -12,6 +13,7 @@
 #include <fstream>
 #include <vector>
 
+using model::fileInputAndOutput;
 using model::Student;
 
 using namespace std;
@@ -38,9 +40,16 @@ GradeBraiderController::~GradeBraiderController() {
  * @param inFile
  * the passed in file.
  */
-void GradeBraiderController::loadFile(string inFile) {
-	vector<Student> resultVector;
-	this->ioVariable.loadFromFile(inFile);
+string GradeBraiderController::loadFile(string inFile) {
+
+	vector<Student> resultVector = this->ioVariable.loadFromFile(inFile);
+
+	if (resultVector.size() > 0) {
+		this->list.CreateListFromFile(resultVector);
+		return "The file was loaded successfully.";
+	}
+
+	return "The file does not exist or could not be found.";
 
 }
 
@@ -53,10 +62,10 @@ void GradeBraiderController::loadFile(string inFile) {
  */
 string controller::GradeBraiderController::saveFile(string file) {
 
+	vector<Student> alphabeticList = this->list.AlphabeticList();
+	this->ioVariable.saveToFile(file, alphabeticList);
 
-	string saveStatus;
-	saveStatus = "File was saved successfully";
-	return saveStatus;
+	return "";
 }
 
 /**
@@ -75,9 +84,9 @@ string controller::GradeBraiderController::saveFile(string file) {
 string controller::GradeBraiderController::insertStudent(string firstName,
 		string lastName, string ID, int grade) {
 
-	if(this->list.CreateStudent(firstName, lastName, ID, grade)){
-	return "Student Created successfully";
-	}else{
+	if (this->list.CreateStudent(lastName, firstName, ID, grade)) {
+		return "Student Created successfully";
+	} else {
 		return "Student was not created.";
 	}
 }

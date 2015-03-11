@@ -27,6 +27,7 @@ private:
 	void mainMenu();
 	void handleSelection(string userSelection);
 	string lowerCaseString(string input);
+	bool fileExists(string file);
 
 public:
 	GradeBraiderTUI();

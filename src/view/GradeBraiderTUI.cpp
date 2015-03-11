@@ -27,6 +27,14 @@ GradeBraiderTUI::GradeBraiderTUI() {
 
 }
 
+bool GradeBraiderTUI::fileExists(string file) {
+	ofstream outputFile(file.c_str());
+	if (outputFile) {
+		return true;
+	}
+	return false;
+}
+
 /**
  * initial menu the user sees on start up.
  */
@@ -92,19 +100,33 @@ void GradeBraiderTUI::handleSelection(string input) {
 
 	switch (userInput) {
 	case 'l': {
-		cout
+		cout << endl
 				<< "Please enter the name of the file that you would like to load in"
 				<< endl;
 		cin >> file;
-		this->controller.loadFile(file);
+		cout << endl << this->controller.loadFile(file) << endl;
 		break;
 	}
 	case 's': {
-		cout
+		char response;
+		cout << endl
 				<< "Please enter the name of the file that you would like to save the list as. "
 				<< endl;
 		cin >> file;
-		this->controller.saveFile(file);
+
+		if (this->fileExists(file)) {
+			cout << "The file already exists. Overwrite it? (y/n)" << endl;
+			cin >> response;
+
+			response = tolower(response);
+			if (response == 'y') {
+				this->controller.saveFile(file);
+			} else {
+				break;
+			}
+		} else {
+			this->controller.saveFile(file);
+		}
 		break;
 	}
 	case 'i': {
@@ -129,9 +151,9 @@ void GradeBraiderTUI::handleSelection(string input) {
 		cout << endl;
 
 		cout << "Please enter the grade: ";
-		while (!(cin >> grade)) {
+		while (!(cin >> grade) || grade < 0) {
 			cin.clear();
-			cout << "Please enter a number for the grade." << endl;
+			cout << "Please enter a valid number for the grade." << endl;
 		}
 
 		cout << endl;
@@ -151,35 +173,36 @@ void GradeBraiderTUI::handleSelection(string input) {
 	}
 
 	case 'a': {
-		cout << "The students in alphabetic order are: " << endl;
+		cout << endl << "The students in alphabetic order are: " << endl;
 		resultVector = this->controller.alphabeticList();
 		this->outputVector(resultVector);
 		break;
 	}
 
 	case 'v': {
-		cout << "The students in reverse alphabetic order are: " << endl;
+		cout << endl << "The students in reverse alphabetic order are: "
+				<< endl;
 		resultVector = this->controller.reverseAlphabetic();
 		this->outputVector(resultVector);
 		break;
 	}
 
 	case 'g': {
-		cout << "The students in grade ascending are: " << endl;
+		cout << endl << "The students in grade ascending are: " << endl;
 		resultVector = this->controller.gradeAscending();
 		this->outputVector(resultVector);
 		break;
 	}
 
 	case 'c': {
-		cout << "The students in grade descending are: " << endl;
+		cout << endl << "The students in grade descending are: " << endl;
 		resultVector = this->controller.gradeDescending();
 		this->outputVector(resultVector);
 		break;
 	}
 
 	case 'q': {
-		cout << "Good bye." << endl;
+		cout << endl << "Good bye." << endl;
 		exit(0);
 		break;
 	}

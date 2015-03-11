@@ -6,7 +6,6 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
-
 #include <GradeBraiderTUI.h>
 #include <iostream>
 #include<fstream>
@@ -32,26 +31,9 @@ int main(int argc, const char * argv[]) {
 	GradeBraiderTUI tui;
 	vector<string> stringVector;
 
+	cout << controller.loadFile(argv[1]) << endl;
 
-	if(argc == 2){
-//
-//		ifstream the_file(argv[1]);
-//
-//		if (!the_file.is_open())
-//			cout << "Could not open file\n";
-//		else {
-//			string x;
-//
-//			while (getline(the_file, x)) {
-//				cout << x;
-//			}
-//
-//		}
-		controller.loadFile(argv[1]);
-
-	} else{
-		tui.runMenuSystem();
-	}
+	tui.runMenuSystem();
 
 	return 0;
 }

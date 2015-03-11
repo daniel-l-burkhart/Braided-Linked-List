@@ -188,28 +188,48 @@ bool BraidedLinkedList::DeleteStudentName(string studentID) {
  * @param grade
  * The student's grade.
  */
-bool BraidedLinkedList::CreateStudent(string firstName, string lastName,
+bool BraidedLinkedList::CreateStudent(string lastName, string firstName,
 		string ID, int grade) {
-	Student *createdStudent = new Student(firstName, lastName, ID, grade, 0, 0);
+
+	Student *createdStudent = new Student(lastName, firstName, ID, grade, 0, 0);
 
 	this->insertStudentGrade(createdStudent);
+
 	this->insertStudentName(createdStudent);
 	return true;
 
+}
+
+void BraidedLinkedList::CreateListFromFile(vector<Student> vectorOfStudents) {
+
+	this->clearList();
+	for (vector<Student>::size_type i = 0; i < vectorOfStudents.size(); i++) {
+
+		this->CreateStudent(vectorOfStudents[i].getLastName(),
+				vectorOfStudents[i].getFirstName(), vectorOfStudents[i].getId(),
+				vectorOfStudents[i].getGrade());
+	}
+}
+
+void BraidedLinkedList::clearList() {
+	Student *pDel = this->pHeadName;
+
+	while(pDel != 0){
+
+		this->pHeadName = this->pHeadName->nextName;
+
+		delete pDel;
+		pDel = 0;
+		pDel = this->pHeadName;
+	}
+	this->pHeadName = 0;
 }
 
 /**
  * Deconstructor of class. Deletes all nodes on heap.
  */
 BraidedLinkedList::~BraidedLinkedList() {
-	Student* pCurrent = this->pHeadName;
-
-	while (pCurrent != 0) {
-		Student *temp = pCurrent;
-		pCurrent = pCurrent->nextName;
-		delete temp;
-		temp = 0;
-	}
+	this->clearList();
 }
 
 /**

@@ -7,10 +7,13 @@
 
 #include <fileInputAndOutput.h>
 #include <Student.h>
+#include <cstdlib>
 #include <fstream>
+#include <iosfwd>
 #include <string>
 #include <vector>
 #include <sstream>
+#include <iostream>
 
 using namespace std;
 
@@ -20,7 +23,6 @@ namespace model {
  * constructor of class
  */
 fileInputAndOutput::fileInputAndOutput() {
-	// TODO Auto-generated constructor stub
 
 }
 
@@ -31,41 +33,46 @@ fileInputAndOutput::~fileInputAndOutput() {
 
 }
 
+void fileInputAndOutput::getLineFromFile(string line,
+		vector<string> stringVector, ifstream& input,
+		vector<Student>& studentVector) {
+
+	while (getline(input, line)) {
+
+		char delimiter = ',';
+
+		stringVector = this->split(line, delimiter);
+
+		double grade = atof(stringVector[3].c_str());
+
+		Student currentStudent = Student(stringVector[0], stringVector[1],
+				stringVector[2], grade, 0, 0);
+
+		studentVector.push_back(currentStudent);
+	}
+}
+
 /**
  * loads student objects from file.
  * @param file
  * the file to be loaded
  */
-void fileInputAndOutput::loadFromFile(string file) {
+vector<Student> fileInputAndOutput::loadFromFile(string file) {
 
 	vector<string> stringVector;
+
+	vector<Student> studentVector;
+
 	ifstream input(file.c_str());
-
 	if (input.is_open()) {
+
 		string line;
-		while (getline(input, line)) {
 
-			char delimiter = ',';
-
-			getline(input, line, '\n');
-
-			this->split(line, delimiter, stringVector);
-
-			double grade;
-			istringstream convert(stringVector[3]);
-			convert >> grade;
-
-			this->student.CreateStudent(stringVector[0], stringVector[1],
-					stringVector[2], grade);
-
-			stringVector.clear();
-			line.clear();
-
-		}
-
-		input.close();
+		this->getLineFromFile(line, stringVector, input, studentVector);
 	}
 
+	input.close();
+	return studentVector;
 }
 
 /**
@@ -77,8 +84,8 @@ void fileInputAndOutput::loadFromFile(string file) {
  * @param studentData
  * the vector of data from the line
  */
-void fileInputAndOutput::split(string line, char c,
-		vector<string> studentData) {
+vector<string> fileInputAndOutput::split(string line, char c) {
+	vector<string> studentData;
 	int i = 0;
 	int j = line.find(c);
 
@@ -91,22 +98,32 @@ void fileInputAndOutput::split(string line, char c,
 			studentData.push_back(line.substr(i, line.length()));
 		}
 	}
+	return studentData;
 }
 
 /**
- * saves current list to file
+ * saves current list of students to file
  * @param file
  * the file to be saved
  * @param pHead
  * the head pointer of the list.
  */
-void fileInputAndOutput::saveToFile(string file, Student* pHead) {
+void fileInputAndOutput::saveToFile(string file,
+		vector<Student> listOfStudents) {
 
 	ofstream outputFile(file.c_str());
+	char input;
+	if(outputFile){
+		cout << "The file already exists. Overwrite it? (y/n)" << endl;
+		cin >> input;
+	}
 
-	for (Student *pTemp = pHead; pTemp != 0; pTemp = pTemp->nextName) {
-		outputFile << pTemp->getLastName() << "," << pTemp->getFirstName()
-				<< "," << pTemp->getId() << "," << pTemp->getGrade() << endl;
+	for (vector<string>::size_type i = 0; i < listOfStudents.size(); i++) {
+		outputFile << listOfStudents[i].getLastName() << ","
+				<< listOfStudents[i].getFirstName() << ","
+				<< listOfStudents[i].getId() << ","
+				<< listOfStudents[i].getGrade();
+		outputFile << '\n';
 	}
 
 	outputFile.close();

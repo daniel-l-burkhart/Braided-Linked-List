@@ -16,6 +16,7 @@ using namespace std;
 namespace model {
 
 class BraidedLinkedList {
+
 private:
 	Student* pHeadName;
 	Student* pHeadGrade;
@@ -36,19 +37,22 @@ private:
 	void checkForPreviousGrade(Student* pPrevious, Student* pStudent);
 	void checkForPreviousName(Student* pPrevious, Student* pStudent);
 
+	void clearList();
+
 public:
 	BraidedLinkedList();
 	virtual ~BraidedLinkedList();
 
 	bool DeleteStudentName(string studentID);
-	bool CreateStudent(string firstName, string lastName, string ID,
-			int grade);
+	bool CreateStudent(string lastName, string firstName, string ID, int grade);
+
 	void CreateListFromFile(vector<Student> vectorOfStudents);
 
 	vector<Student> AlphabeticList();
 	vector<Student> AscendingGrades();
 	vector<Student> ReverseList();
 	vector<Student> DescendingGrades();
+
 };
 
 } /* namespace model */

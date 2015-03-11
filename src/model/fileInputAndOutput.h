@@ -21,13 +21,16 @@ class fileInputAndOutput {
 private:
 
 	BraidedLinkedList student;
-	void split(string line, char c, vector<string> studentData);
+	vector<string> split(string line, char c);
+	void getLineFromFile(string line, vector<string> stringVector,
+			ifstream& input, vector<Student>& studentVector);
+
 public:
 	fileInputAndOutput();
 	virtual ~fileInputAndOutput();
 
-	void loadFromFile(string file);
-	void saveToFile(string file, Student* pHead);
+	vector<Student> loadFromFile(string file);
+	void saveToFile(string file, vector<Student> listOfStudents);
 
 };
 

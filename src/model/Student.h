@@ -10,7 +10,6 @@
 #include <iosfwd>
 #include <string>
 
-
 using namespace std;
 
 namespace model {
@@ -27,9 +26,9 @@ private:
 
 public:
 	Student();
-	Student(string firstName, string lastName, string ID, double grade, Student* nextName, Student* nextGrade);
+	Student(string lastName, string firstName, string ID, double grade,
+			Student* nextName, Student* nextGrade);
 	virtual ~Student();
-
 
 	const string& getId() const;
 	const string& getFirstName() const;
@@ -37,9 +36,8 @@ public:
 	const string& getLastName() const;
 
 	Student* nextName;
-		Student* nextGrade;
+	Student* nextGrade;
 };
-
 
 } /* namespace model */
 

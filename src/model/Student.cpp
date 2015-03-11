@@ -34,7 +34,7 @@ Student::Student() {
  * @param nextGrade
  * The pointer to the next student by grade.
  */
-Student::Student(string firstName, string lastName, string ID, double grade,
+Student::Student(string lastName, string firstName, string ID, double grade,
 		Student* nextName, Student* nextGrade) {
 	this->firstName = firstName;
 	this->lastName = lastName;
