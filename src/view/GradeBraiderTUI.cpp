@@ -23,7 +23,6 @@ namespace view {
 GradeBraiderTUI::GradeBraiderTUI() {
 
 	this->controller = GradeBraiderController();
-	runMenuSystem();
 
 }
 

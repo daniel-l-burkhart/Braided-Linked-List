@@ -29,11 +29,15 @@ using namespace std;
 int main(int argc, const char * argv[]) {
 	GradeBraiderController controller;
 	GradeBraiderTUI tui;
-	vector<string> stringVector;
 
-	cout << controller.loadFile(argv[1]) << endl;
 
-	tui.runMenuSystem();
+	if (argc != 1) {
+		cout << argv[1] << endl;
+		cout << controller.loadFile(argv[1]) << endl;
+	}
+
+		tui.runMenuSystem();
+
 
 	return 0;
 }
