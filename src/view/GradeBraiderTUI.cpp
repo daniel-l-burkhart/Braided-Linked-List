@@ -9,7 +9,6 @@
 #include <GradeBraiderTUI.h>
 #include <Student.h>
 #include <cstdlib>
-#include <iosfwd>
 #include <iostream>
 #include <vector>
 #include <iomanip>
@@ -22,8 +21,6 @@ using namespace std;
 namespace view {
 
 GradeBraiderTUI::GradeBraiderTUI() {
-
-	this->controller = GradeBraiderController();
 
 }
 
@@ -85,6 +82,10 @@ void GradeBraiderTUI::outputVector(vector<Student> studentVector) {
 	}
 }
 
+void GradeBraiderTUI::LoadFileFromCommandLine(string file){
+	cout << this->controller.loadFile(file) << endl;
+}
+
 /**
  * handles the selection made by the user
  * @param input
@@ -120,6 +121,7 @@ void GradeBraiderTUI::handleSelection(string input) {
 			cin >> response;
 
 			this->handleResponse(response, file);
+
 		} else {
 			this->controller.saveFile(file);
 		}
@@ -132,7 +134,7 @@ void GradeBraiderTUI::handleSelection(string input) {
 		string id;
 		double grade;
 
-		cout << "Please enter the first name: ";
+		cout << endl << "Please enter the first name: ";
 		cin >> firstName;
 		firstName = this->lowerCaseString(firstName);
 		cout << endl;
@@ -218,6 +220,7 @@ void GradeBraiderTUI::handleResponse(string response, string file) {
 	}
 
 	char yesOrNo = tolower(response[0]);
+
 	if (yesOrNo == 'y') {
 		this->controller.saveFile(file);
 	} else {

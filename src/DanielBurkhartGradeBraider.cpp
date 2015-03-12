@@ -8,7 +8,6 @@
 
 #include <GradeBraiderTUI.h>
 #include <iostream>
-#include<fstream>
 #include <vector>
 #include <string>
 
@@ -31,14 +30,14 @@ int main(int argc, const char * argv[]) {
 	GradeBraiderController controller = GradeBraiderController();
 	GradeBraiderTUI tui = GradeBraiderTUI();
 
-
 	if (argc != 1) {
-		cout << argv[1] << endl;
-		cout << controller.loadFile(argv[1]) << endl;
-	}
+
+		tui.LoadFileFromCommandLine(argv[1]);
+		tui.runMenuSystem();
+	} else {
 
 		tui.runMenuSystem();
-
+	}
 
 	return 0;
 }

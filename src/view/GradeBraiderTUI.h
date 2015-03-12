@@ -34,6 +34,7 @@ public:
 	GradeBraiderTUI();
 	virtual ~GradeBraiderTUI();
 	void runMenuSystem();
+	void LoadFileFromCommandLine(string file);
 
 };
 

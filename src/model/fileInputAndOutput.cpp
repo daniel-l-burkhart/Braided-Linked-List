@@ -9,7 +9,6 @@
 #include <Student.h>
 #include <cstdlib>
 #include <fstream>
-#include <iosfwd>
 #include <string>
 #include <vector>
 #include <sstream>
@@ -33,11 +32,11 @@ fileInputAndOutput::~fileInputAndOutput() {
 
 }
 
-vector<Student> fileInputAndOutput::getLineFromFile(string line,
-		ifstream& input) {
+vector<Student> fileInputAndOutput::getLineFromFile(ifstream& input) {
 	vector<string> stringVector;
 
 	vector<Student> studentVector;
+	string line;
 
 	while (getline(input, line)) {
 
@@ -67,9 +66,7 @@ vector<Student> fileInputAndOutput::loadFromFile(string file) {
 	ifstream input(file.c_str());
 	if (input.is_open()) {
 
-		string line;
-
-		resultVector = this->getLineFromFile(line, input);
+		resultVector = this->getLineFromFile(input);
 	}
 
 	input.close();

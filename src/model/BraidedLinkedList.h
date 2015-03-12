@@ -43,9 +43,9 @@ public:
 	virtual ~BraidedLinkedList();
 
 	bool DeleteStudentName(string studentID);
-	bool CreateStudent(string lastName, string firstName, string ID, int grade);
+	void CreateStudent(string lastName, string firstName, string ID, int grade);
 
-	void CreateListFromFile(vector<Student> vectorOfStudents);
+	void CreateListFromFile(vector<Student> &vectorOfStudents);
 
 	vector<Student> AlphabeticList();
 	vector<Student> AscendingGrades();

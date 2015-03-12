@@ -8,7 +8,6 @@
 #include <fileInputAndOutput.h>
 #include <GradeBraiderController.h>
 #include <Student.h>
-#include <iosfwd>
 #include <string>
 #include <vector>
 
@@ -41,7 +40,8 @@ GradeBraiderController::~GradeBraiderController() {
  */
 string GradeBraiderController::loadFile(string inFile) {
 
-	vector<Student> resultVector = this->ioVariable.loadFromFile(inFile);
+	vector<Student> resultVector;
+	resultVector = this->ioVariable.loadFromFile(inFile);
 
 	if (resultVector.size() > 0) {
 		this->list.CreateListFromFile(resultVector);
@@ -84,11 +84,9 @@ string controller::GradeBraiderController::saveFile(string file) {
 string controller::GradeBraiderController::insertStudent(string firstName,
 		string lastName, string ID, int grade) {
 
-	if (this->list.CreateStudent(lastName, firstName, ID, grade)) {
-		return "Student Created successfully";
-	} else {
-		return "Student was not created.";
-	}
+	this->list.CreateStudent(lastName, firstName, ID, grade);
+	return "Student Created successfully";
+
 }
 
 /**

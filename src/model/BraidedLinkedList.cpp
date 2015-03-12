@@ -66,6 +66,14 @@ void BraidedLinkedList::insertStudentName(Student *pStudent) {
 
 }
 
+/**
+ * Checks if the previous grade is valid in order to
+ * cause deletion to work successfully.
+ * @param pPrevious
+ * the previous node.
+ * @param pStudent
+ * the current student node.
+ */
 void BraidedLinkedList::checkForPreviousGrade(Student* pPrevious,
 		Student* pStudent) {
 	if (!pPrevious) {
@@ -189,19 +197,23 @@ bool BraidedLinkedList::DeleteStudentName(string studentID) {
  * @param grade
  * The student's grade.
  */
-bool BraidedLinkedList::CreateStudent(string lastName, string firstName,
+void BraidedLinkedList::CreateStudent(string lastName, string firstName,
 		string ID, int grade) {
 
 	Student *createdStudent = new Student(lastName, firstName, ID, grade, 0, 0);
-	cout << createdStudent << endl;
+
 	this->insertStudentGrade(createdStudent);
 
 	this->insertStudentName(createdStudent);
-	return true;
 
 }
 
-void BraidedLinkedList::CreateListFromFile(vector<Student> vectorOfStudents) {
+/**
+ * Creates the student list from a vector of students loaded from the file
+ * @param vectorOfStudents
+ * the vector of student objects
+ */
+void BraidedLinkedList::CreateListFromFile(vector<Student>& vectorOfStudents) {
 
 	this->clearList();
 
@@ -212,8 +224,16 @@ void BraidedLinkedList::CreateListFromFile(vector<Student> vectorOfStudents) {
 				vectorOfStudents[i].getGrade());
 
 	}
+	vector<Student> currentList = this->AlphabeticList();
+	for(vector<Student>::size_type j = 0; j<currentList.size(); j++){
+		cout << currentList[j].getLastName() << endl;
+	}
+
 }
 
+/**
+ * Clears the list and deletes all nodes.
+ */
 void BraidedLinkedList::clearList() {
 
 	Student *pDel = this->pHeadName;
@@ -228,6 +248,7 @@ void BraidedLinkedList::clearList() {
 	}
 	this->pHeadName = 0;
 	this->pHeadGrade = 0;
+	this->pTailName = 0;
 }
 
 /**
