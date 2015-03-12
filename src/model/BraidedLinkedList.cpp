@@ -18,17 +18,17 @@ namespace model {
 BraidedLinkedList::BraidedLinkedList() {
 	this->pHeadName = 0;
 	this->pHeadGrade = 0;
-	this->pTailGrade = 0;
 	this->pTailName = 0;
 }
 
 void BraidedLinkedList::checkForPreviousName(Student* pPrevious,
 		Student* pStudent) {
-	//if we're looking at the head, make new node the head
+
 	if (!pPrevious) {
 		this->pHeadName = pStudent;
-	} else {
-		//put new node in front of the 'previous' node
+	}
+
+	else {
 		pPrevious->nextName = pStudent;
 	}
 }
@@ -84,6 +84,7 @@ void BraidedLinkedList::insertStudentGrade(Student *pStudent) {
 
 	if (this->pHeadGrade == 0) {
 		this->pHeadGrade = pStudent;
+
 		return;
 	}
 
@@ -192,7 +193,7 @@ bool BraidedLinkedList::CreateStudent(string lastName, string firstName,
 		string ID, int grade) {
 
 	Student *createdStudent = new Student(lastName, firstName, ID, grade, 0, 0);
-
+	cout << createdStudent << endl;
 	this->insertStudentGrade(createdStudent);
 
 	this->insertStudentName(createdStudent);
@@ -203,18 +204,21 @@ bool BraidedLinkedList::CreateStudent(string lastName, string firstName,
 void BraidedLinkedList::CreateListFromFile(vector<Student> vectorOfStudents) {
 
 	this->clearList();
+
 	for (vector<Student>::size_type i = 0; i < vectorOfStudents.size(); i++) {
 
 		this->CreateStudent(vectorOfStudents[i].getLastName(),
 				vectorOfStudents[i].getFirstName(), vectorOfStudents[i].getId(),
 				vectorOfStudents[i].getGrade());
+
 	}
 }
 
 void BraidedLinkedList::clearList() {
+
 	Student *pDel = this->pHeadName;
 
-	while(pDel != 0){
+	while (pDel != 0) {
 
 		this->pHeadName = this->pHeadName->nextName;
 
@@ -223,6 +227,7 @@ void BraidedLinkedList::clearList() {
 		pDel = this->pHeadName;
 	}
 	this->pHeadName = 0;
+	this->pHeadGrade = 0;
 }
 
 /**
@@ -258,8 +263,10 @@ vector<Student> BraidedLinkedList::AlphabeticList() {
 	vector<Student> students = vector<Student>();
 
 	if (this->pHeadName != 0) {
+
 		Student *pCurrent = this->pHeadName;
 		this->makeNameVector(pCurrent, students);
+
 	}
 
 	return students;

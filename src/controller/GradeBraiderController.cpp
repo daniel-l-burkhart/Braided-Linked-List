@@ -10,7 +10,6 @@
 #include <Student.h>
 #include <iosfwd>
 #include <string>
-#include <fstream>
 #include <vector>
 
 using model::fileInputAndOutput;
@@ -24,15 +23,15 @@ namespace controller {
  * Constructor of class
  */
 GradeBraiderController::GradeBraiderController() {
-	// TODO Auto-generated constructor stub
-
+	this->list = BraidedLinkedList();
+	this->ioVariable = fileInputAndOutput();
 }
 
 /**
  * destructor of class.
  */
 GradeBraiderController::~GradeBraiderController() {
-	// TODO Auto-generated destructor stub
+
 }
 
 /**
@@ -46,6 +45,7 @@ string GradeBraiderController::loadFile(string inFile) {
 
 	if (resultVector.size() > 0) {
 		this->list.CreateListFromFile(resultVector);
+
 		return "The file was loaded successfully.";
 	}
 

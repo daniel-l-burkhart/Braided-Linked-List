@@ -21,7 +21,6 @@ private:
 	Student* pHeadName;
 	Student* pHeadGrade;
 	Student* pTailName;
-	Student* pTailGrade;
 
 	vector<Student> reversedList;
 	vector<Student> reversedGrades;

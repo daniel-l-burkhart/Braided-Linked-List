@@ -19,20 +19,20 @@ private:
 	string firstName;
 	string lastName;
 	string ID;
-	double grade;
+	int grade;
 
 	void Insert(Student* pStudent);
 	void Delete();
 
 public:
 	Student();
-	Student(string lastName, string firstName, string ID, double grade,
+	Student(string lastName, string firstName, string ID, int grade,
 			Student* nextName, Student* nextGrade);
 	virtual ~Student();
 
 	const string& getId() const;
 	const string& getFirstName() const;
-	double getGrade() const;
+	int getGrade() const;
 	const string& getLastName() const;
 
 	Student* nextName;

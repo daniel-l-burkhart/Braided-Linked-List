@@ -34,7 +34,7 @@ Student::Student() {
  * @param nextGrade
  * The pointer to the next student by grade.
  */
-Student::Student(string lastName, string firstName, string ID, double grade,
+Student::Student(string lastName, string firstName, string ID, int grade,
 		Student* nextName, Student* nextGrade) {
 	this->firstName = firstName;
 	this->lastName = lastName;
@@ -50,8 +50,6 @@ Student::Student(string lastName, string firstName, string ID, double grade,
 Student::~Student() {
 	// TODO Auto-generated destructor stub
 }
-
-} /* namespace model */
 
 /**
  * Gets the ID
@@ -76,7 +74,7 @@ const string& model::Student::getFirstName() const {
  * @return
  * the student's grade.
  */
-double model::Student::getGrade() const {
+int model::Student::getGrade() const {
 	return grade;
 }
 
@@ -88,3 +86,7 @@ double model::Student::getGrade() const {
 const string& model::Student::getLastName() const {
 	return lastName;
 }
+
+} /* namespace model */
+
+

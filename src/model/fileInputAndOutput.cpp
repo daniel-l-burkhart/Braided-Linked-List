@@ -33,9 +33,11 @@ fileInputAndOutput::~fileInputAndOutput() {
 
 }
 
-void fileInputAndOutput::getLineFromFile(string line,
-		vector<string> stringVector, ifstream& input,
-		vector<Student>& studentVector) {
+vector<Student> fileInputAndOutput::getLineFromFile(string line,
+		ifstream& input) {
+	vector<string> stringVector;
+
+	vector<Student> studentVector;
 
 	while (getline(input, line)) {
 
@@ -43,13 +45,14 @@ void fileInputAndOutput::getLineFromFile(string line,
 
 		stringVector = this->split(line, delimiter);
 
-		double grade = atof(stringVector[3].c_str());
+		int grade = atof(stringVector[3].c_str());
 
 		Student currentStudent = Student(stringVector[0], stringVector[1],
 				stringVector[2], grade, 0, 0);
 
 		studentVector.push_back(currentStudent);
 	}
+	return studentVector;
 }
 
 /**
@@ -59,20 +62,18 @@ void fileInputAndOutput::getLineFromFile(string line,
  */
 vector<Student> fileInputAndOutput::loadFromFile(string file) {
 
-	vector<string> stringVector;
-
-	vector<Student> studentVector;
+	vector<Student> resultVector;
 
 	ifstream input(file.c_str());
 	if (input.is_open()) {
 
 		string line;
 
-		this->getLineFromFile(line, stringVector, input, studentVector);
+		resultVector = this->getLineFromFile(line, input);
 	}
 
 	input.close();
-	return studentVector;
+	return resultVector;
 }
 
 /**
@@ -87,14 +88,15 @@ vector<Student> fileInputAndOutput::loadFromFile(string file) {
 vector<string> fileInputAndOutput::split(string line, char c) {
 	vector<string> studentData;
 	int i = 0;
-	int j = line.find(c);
+	int delimiter = line.find(c);
 
-	while (j >= 0) {
-		studentData.push_back(line.substr(i, j - i));
-		i = ++j;
-		j = line.find(c, j);
+	while (delimiter >= 0) {
 
-		if (j < 0) {
+		studentData.push_back(line.substr(i, delimiter - i));
+		i = ++delimiter;
+		delimiter = line.find(c, delimiter);
+
+		if (delimiter < 0) {
 			studentData.push_back(line.substr(i, line.length()));
 		}
 	}
@@ -112,11 +114,6 @@ void fileInputAndOutput::saveToFile(string file,
 		vector<Student> listOfStudents) {
 
 	ofstream outputFile(file.c_str());
-	char input;
-	if(outputFile){
-		cout << "The file already exists. Overwrite it? (y/n)" << endl;
-		cin >> input;
-	}
 
 	for (vector<string>::size_type i = 0; i < listOfStudents.size(); i++) {
 		outputFile << listOfStudents[i].getLastName() << ","

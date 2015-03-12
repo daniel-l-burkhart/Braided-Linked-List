@@ -12,6 +12,7 @@
 #include <iosfwd>
 #include <iostream>
 #include <vector>
+#include <iomanip>
 
 using controller::GradeBraiderController;
 using namespace controller;
@@ -27,7 +28,8 @@ GradeBraiderTUI::GradeBraiderTUI() {
 }
 
 bool GradeBraiderTUI::fileExists(string file) {
-	ofstream outputFile(file.c_str());
+	ofstream outputFile;
+	outputFile.open(file.c_str());
 	if (outputFile) {
 		return true;
 	}
@@ -76,9 +78,9 @@ void GradeBraiderTUI::mainMenu() {
 void GradeBraiderTUI::outputVector(vector<Student> studentVector) {
 
 	for (vector<Student>::size_type i = 0; i < studentVector.size(); i++) {
-		cout << studentVector[i].getLastName() << " "
-				<< studentVector[i].getFirstName() << " "
-				<< studentVector[i].getId() << " "
+		cout << setw(15) << left << studentVector[i].getLastName() << setw(15)
+				<< left << studentVector[i].getFirstName() << setw(15) << left
+				<< studentVector[i].getId() << setw(15) << left
 				<< studentVector[i].getGrade() << endl;
 	}
 }
@@ -107,7 +109,7 @@ void GradeBraiderTUI::handleSelection(string input) {
 		break;
 	}
 	case 's': {
-		char response;
+		string response;
 		cout << endl
 				<< "Please enter the name of the file that you would like to save the list as. "
 				<< endl;
@@ -117,12 +119,7 @@ void GradeBraiderTUI::handleSelection(string input) {
 			cout << "The file already exists. Overwrite it? (y/n)" << endl;
 			cin >> response;
 
-			response = tolower(response);
-			if (response == 'y') {
-				this->controller.saveFile(file);
-			} else {
-				break;
-			}
+			this->handleResponse(response, file);
 		} else {
 			this->controller.saveFile(file);
 		}
@@ -211,6 +208,20 @@ void GradeBraiderTUI::handleSelection(string input) {
 				<< endl;
 	}
 
+	}
+}
+
+void GradeBraiderTUI::handleResponse(string response, string file) {
+	while (response.length() > 1) {
+		cout << "Please enter y or n." << endl;
+		cin >> response;
+	}
+
+	char yesOrNo = tolower(response[0]);
+	if (yesOrNo == 'y') {
+		this->controller.saveFile(file);
+	} else {
+		return;
 	}
 }
 

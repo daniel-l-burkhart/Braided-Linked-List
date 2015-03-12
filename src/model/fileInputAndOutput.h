@@ -22,8 +22,8 @@ private:
 
 	BraidedLinkedList student;
 	vector<string> split(string line, char c);
-	void getLineFromFile(string line, vector<string> stringVector,
-			ifstream& input, vector<Student>& studentVector);
+	vector<Student> getLineFromFile(string line,
+			ifstream& input);
 
 public:
 	fileInputAndOutput();

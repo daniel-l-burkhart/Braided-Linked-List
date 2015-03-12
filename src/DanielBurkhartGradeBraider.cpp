@@ -27,8 +27,9 @@ using namespace std;
  * 0 if successful.
  */
 int main(int argc, const char * argv[]) {
-	GradeBraiderController controller;
-	GradeBraiderTUI tui;
+
+	GradeBraiderController controller = GradeBraiderController();
+	GradeBraiderTUI tui = GradeBraiderTUI();
 
 
 	if (argc != 1) {
