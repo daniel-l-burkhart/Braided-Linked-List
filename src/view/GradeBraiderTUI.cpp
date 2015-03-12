@@ -28,8 +28,8 @@ GradeBraiderTUI::GradeBraiderTUI() {
 }
 
 bool GradeBraiderTUI::fileExists(string file) {
-	ofstream outputFile;
-	outputFile.open(file.c_str());
+	fstream outputFile(file.c_str());
+
 	if (outputFile) {
 		return true;
 	}
