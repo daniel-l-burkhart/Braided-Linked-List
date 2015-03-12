@@ -29,15 +29,16 @@ private:
 public:
 	GradeBraiderController();
 	virtual ~GradeBraiderController();
-	string loadFile(string file);
-	string saveFile(string file);
-	string insertStudent(string lastName, string firstName, string ID, int grade);
-	string deleteStudent(string studentID);
 
-	vector<Student> alphabeticList();
-	vector<Student> reverseAlphabetic();
-	vector<Student> gradeAscending();
-	vector<Student> gradeDescending();
+	string LoadFile(string file);
+	string SaveFile(string file);
+	string InsertStudent(string lastName, string firstName, string ID, int grade);
+	string DeleteStudent(string studentID);
+
+	vector<Student> AlphabeticList();
+	vector<Student> ReverseAlphabetic();
+	vector<Student> GradeAscending();
+	vector<Student> GradeDescending();
 
 };
 

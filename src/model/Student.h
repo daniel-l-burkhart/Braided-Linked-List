@@ -16,13 +16,11 @@ namespace model {
 
 class Student {
 private:
+
 	string firstName;
 	string lastName;
 	string ID;
 	int grade;
-
-	void Insert(Student* pStudent);
-	void Delete();
 
 public:
 	Student();

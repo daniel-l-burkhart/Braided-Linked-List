@@ -27,11 +27,13 @@ private:
 
 	void insertStudentName(Student* pStudent);
 	void insertStudentGrade(Student* pStudent);
+
 	void makeGradeVector(Student* pCurrent, vector<Student>& studentGrades);
 	void makeNameVector(Student* pCurrent, vector<Student>& students);
 
 	void makeReverseNameVector(Student* pHead);
 	void makeGradeDescendVector(Student* pStudentGrade);
+
 	void checkForTail(Student* pDeletePtr, Student* pPrevious);
 	void checkForPreviousGrade(Student* pPrevious, Student* pStudent);
 	void checkForPreviousName(Student* pPrevious, Student* pStudent);

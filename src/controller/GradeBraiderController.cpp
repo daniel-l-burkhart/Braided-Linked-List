@@ -38,10 +38,10 @@ GradeBraiderController::~GradeBraiderController() {
  * @param inFile
  * the passed in file.
  */
-string GradeBraiderController::loadFile(string inFile) {
+string GradeBraiderController::LoadFile(string inFile) {
 
 	vector<Student> resultVector;
-	resultVector = this->ioVariable.loadFromFile(inFile);
+	resultVector = this->ioVariable.LoadFromFile(inFile);
 
 	if (resultVector.size() > 0) {
 		this->list.CreateListFromFile(resultVector);
@@ -60,12 +60,15 @@ string GradeBraiderController::loadFile(string inFile) {
  * @return
  * a string status about the process
  */
-string controller::GradeBraiderController::saveFile(string file) {
+string controller::GradeBraiderController::SaveFile(string file) {
 
 	vector<Student> alphabeticList = this->list.AlphabeticList();
-	this->ioVariable.saveToFile(file, alphabeticList);
 
-	return "";
+	if(this->ioVariable.SaveToFile(file, alphabeticList)){
+		return "File was saved successfully.";
+	}
+
+	return "File was not saved successfully.";
 }
 
 /**
@@ -81,7 +84,7 @@ string controller::GradeBraiderController::saveFile(string file) {
  * @return
  *
  */
-string controller::GradeBraiderController::insertStudent(string firstName,
+string controller::GradeBraiderController::InsertStudent(string firstName,
 		string lastName, string ID, int grade) {
 
 	this->list.CreateStudent(lastName, firstName, ID, grade);
@@ -96,7 +99,7 @@ string controller::GradeBraiderController::insertStudent(string firstName,
  * @return
  * string message that user was successfully deleted or that it wasn't if student ID wasn't in list.
  */
-string controller::GradeBraiderController::deleteStudent(string studentID) {
+string controller::GradeBraiderController::DeleteStudent(string studentID) {
 
 	if (this->list.DeleteStudentName(studentID)) {
 		return "Student was successfully deleted.";
@@ -111,7 +114,7 @@ string controller::GradeBraiderController::deleteStudent(string studentID) {
  * @return
  * vector containing all students alphabetically.
  */
-vector<Student> GradeBraiderController::alphabeticList() {
+vector<Student> GradeBraiderController::AlphabeticList() {
 	return this->list.AlphabeticList();
 }
 
@@ -120,7 +123,7 @@ vector<Student> GradeBraiderController::alphabeticList() {
  * @return
  * a vector with the students in reverse alphabetic order.
  */
-vector<Student> GradeBraiderController::reverseAlphabetic() {
+vector<Student> GradeBraiderController::ReverseAlphabetic() {
 	return this->list.ReverseList();
 }
 
@@ -129,7 +132,7 @@ vector<Student> GradeBraiderController::reverseAlphabetic() {
  * @return
  * a vector of students ordered by grade, ascending.
  */
-vector<Student> controller::GradeBraiderController::gradeAscending() {
+vector<Student> controller::GradeBraiderController::GradeAscending() {
 	return this->list.AscendingGrades();
 }
 
@@ -138,7 +141,7 @@ vector<Student> controller::GradeBraiderController::gradeAscending() {
  * @return
  * a list of all students ordered by grade.
  */
-vector<Student> controller::GradeBraiderController::gradeDescending() {
+vector<Student> controller::GradeBraiderController::GradeDescending() {
 	return this->list.DescendingGrades();
 }
 

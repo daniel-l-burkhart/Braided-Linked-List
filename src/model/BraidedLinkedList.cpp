@@ -224,10 +224,6 @@ void BraidedLinkedList::CreateListFromFile(vector<Student>& vectorOfStudents) {
 				vectorOfStudents[i].getGrade());
 
 	}
-	vector<Student> currentList = this->AlphabeticList();
-	for(vector<Student>::size_type j = 0; j<currentList.size(); j++){
-		cout << currentList[j].getLastName() << endl;
-	}
 
 }
 

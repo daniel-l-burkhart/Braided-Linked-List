@@ -26,14 +26,18 @@ private:
 
 	void mainMenu();
 	void handleSelection(string userSelection);
+
 	string lowerCaseString(string input);
+
 	bool fileExists(string file);
+
 	void handleResponse(string response, string file);
 
 public:
 	GradeBraiderTUI();
 	virtual ~GradeBraiderTUI();
-	void runMenuSystem();
+
+	void RunMenuSystem();
 	void LoadFileFromCommandLine(string file);
 
 };

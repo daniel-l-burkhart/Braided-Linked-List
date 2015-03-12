@@ -23,13 +23,15 @@ private:
 	BraidedLinkedList student;
 	vector<string> split(string line, char c);
 	vector<Student> getLineFromFile(ifstream& input);
+	void writeStudentToFile(const vector<Student>& listOfStudents,
+			const ofstream& outputFile);
 
 public:
 	fileInputAndOutput();
 	virtual ~fileInputAndOutput();
 
-	vector<Student> loadFromFile(string file);
-	void saveToFile(string file, vector<Student> listOfStudents);
+	vector<Student> LoadFromFile(string file);
+	bool SaveToFile(string file, vector<Student> listOfStudents);
 
 };
 

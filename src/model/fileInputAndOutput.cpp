@@ -59,7 +59,7 @@ vector<Student> fileInputAndOutput::getLineFromFile(ifstream& input) {
  * @param file
  * the file to be loaded
  */
-vector<Student> fileInputAndOutput::loadFromFile(string file) {
+vector<Student> fileInputAndOutput::LoadFromFile(string file) {
 
 	vector<Student> resultVector;
 
@@ -107,10 +107,15 @@ vector<string> fileInputAndOutput::split(string line, char c) {
  * @param pHead
  * the head pointer of the list.
  */
-void fileInputAndOutput::saveToFile(string file,
+bool fileInputAndOutput::SaveToFile(string file,
 		vector<Student> listOfStudents) {
 
 	ofstream outputFile(file.c_str());
+
+	if (outputFile.bad()) {
+		outputFile.close();
+		return false;
+	}
 
 	for (vector<string>::size_type i = 0; i < listOfStudents.size(); i++) {
 		outputFile << listOfStudents[i].getLastName() << ","
@@ -119,8 +124,9 @@ void fileInputAndOutput::saveToFile(string file,
 				<< listOfStudents[i].getGrade();
 		outputFile << '\n';
 	}
-
 	outputFile.close();
+	return true;
+
 }
 
 } /* namespace model */

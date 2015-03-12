@@ -36,7 +36,7 @@ bool GradeBraiderTUI::fileExists(string file) {
 /**
  * initial menu the user sees on start up.
  */
-void GradeBraiderTUI::runMenuSystem() {
+void GradeBraiderTUI::RunMenuSystem() {
 	string input;
 	cout << "Welcome to Daniel Burkhart's grade braider" << endl;
 
@@ -82,8 +82,8 @@ void GradeBraiderTUI::outputVector(vector<Student> studentVector) {
 	}
 }
 
-void GradeBraiderTUI::LoadFileFromCommandLine(string file){
-	cout << this->controller.loadFile(file) << endl;
+void GradeBraiderTUI::LoadFileFromCommandLine(string file) {
+	cout << this->controller.LoadFile(file) << endl;
 }
 
 /**
@@ -102,14 +102,18 @@ void GradeBraiderTUI::handleSelection(string input) {
 
 	switch (userInput) {
 	case 'l': {
+
 		cout << endl
 				<< "Please enter the name of the file that you would like to load in"
 				<< endl;
+
 		cin >> file;
-		cout << endl << this->controller.loadFile(file) << endl;
+		cout << endl << this->controller.LoadFile(file) << endl;
 		break;
 	}
+
 	case 's': {
+
 		string response;
 		cout << endl
 				<< "Please enter the name of the file that you would like to save the list as. "
@@ -121,12 +125,14 @@ void GradeBraiderTUI::handleSelection(string input) {
 			cin >> response;
 
 			this->handleResponse(response, file);
+			break;
 
 		} else {
-			this->controller.saveFile(file);
+			this->controller.SaveFile(file);
 		}
 		break;
 	}
+
 	case 'i': {
 
 		string firstName;
@@ -137,11 +143,13 @@ void GradeBraiderTUI::handleSelection(string input) {
 		cout << endl << "Please enter the first name: ";
 		cin >> firstName;
 		firstName = this->lowerCaseString(firstName);
+		firstName[0] = toupper(firstName[0]);
 		cout << endl;
 
 		cout << "Please enter the last name: ";
 		cin >> lastName;
 		lastName = this->lowerCaseString(lastName);
+		lastName[0] = toupper(lastName[0]);
 		cout << endl;
 
 		cout << "Please enter the ID: ";
@@ -149,6 +157,7 @@ void GradeBraiderTUI::handleSelection(string input) {
 		cout << endl;
 
 		cout << "Please enter the grade: ";
+
 		while (!(cin >> grade) || grade < 0) {
 			cin.clear();
 			cout << "Please enter a valid number for the grade." << endl;
@@ -156,23 +165,24 @@ void GradeBraiderTUI::handleSelection(string input) {
 
 		cout << endl;
 
-		cout << this->controller.insertStudent(firstName, lastName, id, grade)
+		cout << this->controller.InsertStudent(firstName, lastName, id, grade)
 				<< endl;
 		break;
 	}
+
 	case 'd': {
 		string studentID;
-		cout
+		cout << endl
 				<< "Please enter the student ID of the student you would like to remove: "
 				<< endl;
 		cin >> studentID;
-		cout << this->controller.deleteStudent(studentID);
+		cout << endl << this->controller.DeleteStudent(studentID);
 		break;
 	}
 
 	case 'a': {
 		cout << endl << "The students in alphabetic order are: " << endl;
-		resultVector = this->controller.alphabeticList();
+		resultVector = this->controller.AlphabeticList();
 		this->outputVector(resultVector);
 		break;
 	}
@@ -180,21 +190,21 @@ void GradeBraiderTUI::handleSelection(string input) {
 	case 'v': {
 		cout << endl << "The students in reverse alphabetic order are: "
 				<< endl;
-		resultVector = this->controller.reverseAlphabetic();
+		resultVector = this->controller.ReverseAlphabetic();
 		this->outputVector(resultVector);
 		break;
 	}
 
 	case 'g': {
 		cout << endl << "The students in grade ascending are: " << endl;
-		resultVector = this->controller.gradeAscending();
+		resultVector = this->controller.GradeAscending();
 		this->outputVector(resultVector);
 		break;
 	}
 
 	case 'c': {
 		cout << endl << "The students in grade descending are: " << endl;
-		resultVector = this->controller.gradeDescending();
+		resultVector = this->controller.GradeDescending();
 		this->outputVector(resultVector);
 		break;
 	}
@@ -213,7 +223,16 @@ void GradeBraiderTUI::handleSelection(string input) {
 	}
 }
 
+/**
+ * Handles action if the file to be saved already exists.
+ * Lets the user choose if they want to overwrite or not.
+ * @param response
+ * The user's response.
+ * @param file
+ * the file that will output the data.
+ */
 void GradeBraiderTUI::handleResponse(string response, string file) {
+
 	while (response.length() > 1) {
 		cout << "Please enter y or n." << endl;
 		cin >> response;
@@ -222,7 +241,7 @@ void GradeBraiderTUI::handleResponse(string response, string file) {
 	char yesOrNo = tolower(response[0]);
 
 	if (yesOrNo == 'y') {
-		this->controller.saveFile(file);
+		this->controller.SaveFile(file);
 	} else {
 		return;
 	}
@@ -236,7 +255,7 @@ void GradeBraiderTUI::handleResponse(string response, string file) {
  * a lower case equivalent of the input string
  */
 string GradeBraiderTUI::lowerCaseString(string input) {
-	string result;
+
 	for (int i = 0; input[i]; i++) {
 		input[i] = tolower(input[i]);
 	}

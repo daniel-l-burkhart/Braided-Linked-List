@@ -27,16 +27,15 @@ using namespace std;
  */
 int main(int argc, const char * argv[]) {
 
-	GradeBraiderController controller = GradeBraiderController();
 	GradeBraiderTUI tui = GradeBraiderTUI();
 
 	if (argc != 1) {
 
 		tui.LoadFileFromCommandLine(argv[1]);
-		tui.runMenuSystem();
+		tui.RunMenuSystem();
 	} else {
 
-		tui.runMenuSystem();
+		tui.RunMenuSystem();
 	}
 
 	return 0;
