@@ -7,10 +7,12 @@
 
 #ifndef CONTROLLER_GRADEBRAIDERCONTROLLER_H_
 #define CONTROLLER_GRADEBRAIDERCONTROLLER_H_
-#include <BraidedLinkedList.h>
-#include <fileInputAndOutput.h>
-#include <GradeBraiderController.h>
-#include <Student.h>
+
+#include "BraidedLinkedList.h"
+#include "fileInputAndOutput.h"
+#include "GradeBraiderController.h"
+#include "Student.h"
+
 #include <string>
 #include <vector>
 

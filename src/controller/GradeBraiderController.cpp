@@ -5,9 +5,10 @@
  *      Author: dburkha1
  */
 
-#include <fileInputAndOutput.h>
-#include <GradeBraiderController.h>
-#include <Student.h>
+#include "fileInputAndOutput.h"
+#include "GradeBraiderController.h"
+#include "Student.h"
+
 #include <string>
 #include <vector>
 
@@ -46,10 +47,10 @@ string GradeBraiderController::LoadFile(string inFile) {
 	if (resultVector.size() > 0) {
 		this->list.CreateListFromFile(resultVector);
 
-		return "The file was loaded successfully.";
+		return "The file " + inFile + " was loaded successfully.";
 	}
 
-	return "The file does not exist or could not be found.";
+	return "The file does not exist, was empty, or could not be found.";
 
 }
 
@@ -64,8 +65,8 @@ string controller::GradeBraiderController::SaveFile(string file) {
 
 	vector<Student> alphabeticList = this->list.AlphabeticList();
 
-	if(this->ioVariable.SaveToFile(file, alphabeticList)){
-		return "File was saved successfully.";
+	if (this->ioVariable.SaveToFile(file, alphabeticList)) {
+		return "The file " + file + " was saved successfully.";
 	}
 
 	return "File was not saved successfully.";

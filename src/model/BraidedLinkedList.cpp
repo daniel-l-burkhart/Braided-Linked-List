@@ -5,8 +5,7 @@
  *      Author: dburkha1
  */
 
-#include <BraidedLinkedList.h>
-#include <iostream>
+#include "BraidedLinkedList.h"
 
 using namespace std;
 
@@ -18,7 +17,7 @@ namespace model {
 BraidedLinkedList::BraidedLinkedList() {
 	this->pHeadName = 0;
 	this->pHeadGrade = 0;
-	this->pTailName = 0;
+
 }
 
 void BraidedLinkedList::checkForPreviousName(Student* pPrevious,
@@ -118,10 +117,40 @@ void BraidedLinkedList::insertStudentGrade(Student *pStudent) {
 
 }
 
-void BraidedLinkedList::checkForTail(Student* pDeletePtr, Student* pPrevious) {
-	if (pDeletePtr == this->pTailName) {
-		this->pTailName = pPrevious;
+/**
+ * Finds the student object with the matching ID
+ * @param studentID
+ * The passed in student ID
+ * @return
+ * The pointer to the student object in question.
+ */
+Student* BraidedLinkedList::findStudentWithID(const string& studentID) {
+
+	Student* pStudentToDelete = 0;
+	Student* pCurrent;
+	pCurrent = this->pHeadName;
+	while (pCurrent != 0) {
+		if (pCurrent->getId() == studentID) {
+			pStudentToDelete = pCurrent;
+			break;
+		} else {
+			Student* temp = pCurrent;
+			pCurrent = temp->nextName;
+		}
 	}
+	return pStudentToDelete;
+}
+
+/**
+ * Deletes node at head of list.
+ * @param pDeletePtr
+ * The pointer to be deleted.
+ */
+void BraidedLinkedList::deleteAtHead(Student* pDeletePtr) {
+	pDeletePtr = this->pHeadName;
+	this->pHeadName = pDeletePtr->nextName;
+	delete pDeletePtr;
+	pDeletePtr = 0;
 }
 
 /**
@@ -133,33 +162,13 @@ void BraidedLinkedList::checkForTail(Student* pDeletePtr, Student* pPrevious) {
  */
 bool BraidedLinkedList::DeleteStudentName(string studentID) {
 
-	Student *pStudentToDelete = 0;
-	Student *pCurrent;
-	pCurrent = this->pHeadName;
-	while (pCurrent != 0) {
-
-		if (pCurrent->getId() == studentID) {
-			pStudentToDelete = pCurrent;
-			break;
-		}
-
-		else {
-			Student *temp = pCurrent;
-			pCurrent = temp->nextName;
-		}
-	}
+	Student* pStudentToDelete = this->findStudentWithID(studentID);
 
 	Student *pPrevious = 0;
 	Student *pDeletePtr = 0;
 
 	if (this->pHeadName == pStudentToDelete) {
-
-		pDeletePtr = this->pHeadName;
-
-		this->pHeadName = pDeletePtr->nextName;
-
-		delete pDeletePtr;
-		pDeletePtr = 0;
+		this->deleteAtHead(pDeletePtr);
 		return true;
 	}
 
@@ -171,8 +180,6 @@ bool BraidedLinkedList::DeleteStudentName(string studentID) {
 		if (pDeletePtr == pStudentToDelete) {
 
 			pPrevious->nextName = pDeletePtr->nextName;
-
-			this->checkForTail(pDeletePtr, pPrevious);
 
 			delete pDeletePtr;
 			pDeletePtr = 0;
@@ -213,7 +220,7 @@ void BraidedLinkedList::CreateStudent(string lastName, string firstName,
  * @param vectorOfStudents
  * the vector of student objects
  */
-void BraidedLinkedList::CreateListFromFile(vector<Student>& vectorOfStudents) {
+void BraidedLinkedList::CreateListFromFile(vector<Student> vectorOfStudents) {
 
 	this->clearList();
 
@@ -242,9 +249,9 @@ void BraidedLinkedList::clearList() {
 		pDel = 0;
 		pDel = this->pHeadName;
 	}
+
 	this->pHeadName = 0;
 	this->pHeadGrade = 0;
-	this->pTailName = 0;
 }
 
 /**
@@ -272,7 +279,8 @@ void BraidedLinkedList::makeNameVector(Student* pCurrent,
 }
 
 /**
- * creates and returns vector of students to be returned to the user in an alphabetized listing.
+ * creates and returns vector of students to be returned
+ * to the user in an alphabetized listing.
  * @return
  * a vector of students in alphabetical order.
  */

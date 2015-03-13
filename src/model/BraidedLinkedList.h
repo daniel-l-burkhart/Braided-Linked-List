@@ -8,7 +8,8 @@
 #ifndef MODEL_BRAIDEDLINKEDLIST_H_
 #define MODEL_BRAIDEDLINKEDLIST_H_
 
-#include <Student.h>
+#include "Student.h"
+
 #include<vector>
 
 using namespace std;
@@ -20,7 +21,7 @@ class BraidedLinkedList {
 private:
 	Student* pHeadName;
 	Student* pHeadGrade;
-	Student* pTailName;
+
 
 	vector<Student> reversedList;
 	vector<Student> reversedGrades;
@@ -40,6 +41,9 @@ private:
 
 	void clearList();
 
+	Student* findStudentWithID(const string& studentID);
+	void deleteAtHead(Student* pDeletePtr);
+
 public:
 	BraidedLinkedList();
 	virtual ~BraidedLinkedList();
@@ -47,7 +51,7 @@ public:
 	bool DeleteStudentName(string studentID);
 	void CreateStudent(string lastName, string firstName, string ID, int grade);
 
-	void CreateListFromFile(vector<Student> &vectorOfStudents);
+	void CreateListFromFile(vector<Student> vectorOfStudents);
 
 	vector<Student> AlphabeticList();
 	vector<Student> AscendingGrades();

@@ -5,9 +5,10 @@
  *      Author: dburkha1
  */
 
-#include <GradeBraiderController.h>
-#include <GradeBraiderTUI.h>
-#include <Student.h>
+#include "GradeBraiderController.h"
+#include "GradeBraiderTUI.h"
+#include "Student.h"
+
 #include <cstdlib>
 #include <iostream>
 #include <vector>
@@ -24,6 +25,13 @@ GradeBraiderTUI::GradeBraiderTUI() {
 
 }
 
+/**
+ * Helper method to check if a file exists before writing to it.
+ * @param file
+ * the input file
+ * @return
+ * true if the file exists, false otherwise.
+ */
 bool GradeBraiderTUI::fileExists(string file) {
 	fstream outputFile(file.c_str());
 
@@ -82,8 +90,136 @@ void GradeBraiderTUI::outputVector(vector<Student> studentVector) {
 	}
 }
 
+/**
+ * Method to load file from the command line.
+ * @param file
+ * the passed in path to the file.
+ */
 void GradeBraiderTUI::LoadFileFromCommandLine(string file) {
 	cout << this->controller.LoadFile(file) << endl;
+}
+
+/**
+ * Helper method to handle loading a file from the console.
+ * @param file
+ * the passed in string of the file.
+ */
+void GradeBraiderTUI::handleFileLoad() {
+	string file;
+	cout << endl << "Please enter the name of the file that" << endl
+			<< "you would like to load in" << endl;
+	cin >> file;
+	cout << endl << this->controller.LoadFile(file) << endl;
+}
+
+/**
+ * Helper method to insert student into list.
+ */
+void GradeBraiderTUI::insertStudentIntoList() {
+
+	string firstName;
+	string lastName;
+	string id;
+	double grade;
+
+	cout << endl << "Please enter the first name: ";
+	cin >> firstName;
+
+	firstName = this->lowerCaseString(firstName);
+
+	cout << endl;
+	cout << "Please enter the last name: ";
+	cin >> lastName;
+
+	lastName = this->lowerCaseString(lastName);
+
+	cout << endl;
+	cout << "Please enter the ID: ";
+	cin >> id;
+
+	cout << endl;
+	cout << "Please enter the grade: ";
+	while (!(cin >> grade) || grade < 0) {
+		cin.clear();
+		cout << "Please enter a valid number for the grade." << endl;
+	}
+	cout << endl;
+	cout << this->controller.InsertStudent(firstName, lastName, id, grade)
+			<< endl;
+}
+
+/**
+ * Helper method to delete student from list.
+ */
+void GradeBraiderTUI::deleteStudentFromList() {
+	string studentID;
+	cout << endl << "Please enter the student ID of the " << endl
+			<< "student you would like to remove." << endl;
+	cin >> studentID;
+	cout << endl << this->controller.DeleteStudent(studentID);
+}
+
+/**
+ * generates the alphabetic sorting of the list
+ */
+void GradeBraiderTUI::outputListAlphabetically() {
+	vector<Student> alphabeticVector;
+	cout << endl << "The students in alphabetic order are: " << endl;
+	alphabeticVector = this->controller.AlphabeticList();
+	this->outputVector(alphabeticVector);
+}
+
+/**
+ * Generates a reversed sorted order based on the last name.
+ */
+void GradeBraiderTUI::reverseList() {
+	vector<Student> reverseVector;
+	cout << endl << "The students in reverse alphabetic order are: " << endl;
+	reverseVector = this->controller.ReverseAlphabetic();
+	this->outputVector(reverseVector);
+}
+
+/**
+ * Helper method to output a sorting of the list with the grades ascending.
+ */
+void GradeBraiderTUI::outputAscendingGrades() {
+	vector<Student> ascendingVector;
+	cout << endl << "The students in grade ascending are: " << endl;
+
+	ascendingVector = this->controller.GradeAscending();
+	this->outputVector(ascendingVector);
+}
+
+/**
+ * Helper method that outputs the list in descending order.
+ */
+void GradeBraiderTUI::outputDescendingGrades() {
+	vector<Student> descendingVector;
+	cout << endl << "The students in grade descending are: " << endl;
+	descendingVector = this->controller.GradeDescending();
+	this->outputVector(descendingVector);
+}
+
+/**
+ * Helper method to save the current linked list to a file.
+ */
+void GradeBraiderTUI::saveListToFile() {
+	string file;
+	string response;
+	cout << endl << "Please enter the name of the file that " << endl
+			<< "you would like to save the list as. " << endl;
+	cin >> file;
+	if (this->fileExists(file)) {
+
+		cout << "The file already exists. Overwrite it? (y/n)" << endl;
+		cin >> response;
+		this->handleResponse(response, file);
+		return;
+	}
+
+	else {
+		this->controller.SaveFile(file);
+	}
 }
 
 /**
@@ -96,120 +232,56 @@ void GradeBraiderTUI::handleSelection(string input) {
 	userInput = input[0];
 	userInput = tolower(userInput);
 
-	vector<Student> resultVector = vector<Student>();
-
-	string file;
-
 	switch (userInput) {
 	case 'l': {
 
-		cout << endl
-				<< "Please enter the name of the file that you would like to load in"
-				<< endl;
-
-		cin >> file;
-		cout << endl << this->controller.LoadFile(file) << endl;
+		this->handleFileLoad();
 		break;
 	}
 
 	case 's': {
 
-		string response;
-		cout << endl
-				<< "Please enter the name of the file that you would like to save the list as. "
-				<< endl;
-		cin >> file;
-
-		if (this->fileExists(file)) {
-			cout << "The file already exists. Overwrite it? (y/n)" << endl;
-			cin >> response;
-
-			this->handleResponse(response, file);
-			break;
-
-		} else {
-			this->controller.SaveFile(file);
-		}
+		this->saveListToFile();
 		break;
 	}
 
 	case 'i': {
 
-		string firstName;
-		string lastName;
-		string id;
-		double grade;
-
-		cout << endl << "Please enter the first name: ";
-		cin >> firstName;
-		firstName = this->lowerCaseString(firstName);
-		firstName[0] = toupper(firstName[0]);
-		cout << endl;
-
-		cout << "Please enter the last name: ";
-		cin >> lastName;
-		lastName = this->lowerCaseString(lastName);
-		lastName[0] = toupper(lastName[0]);
-		cout << endl;
-
-		cout << "Please enter the ID: ";
-		cin >> id;
-		cout << endl;
-
-		cout << "Please enter the grade: ";
-
-		while (!(cin >> grade) || grade < 0) {
-			cin.clear();
-			cout << "Please enter a valid number for the grade." << endl;
-		}
-
-		cout << endl;
-
-		cout << this->controller.InsertStudent(firstName, lastName, id, grade)
-				<< endl;
+		this->insertStudentIntoList();
 		break;
 	}
 
 	case 'd': {
-		string studentID;
-		cout << endl
-				<< "Please enter the student ID of the student you would like to remove: "
-				<< endl;
-		cin >> studentID;
-		cout << endl << this->controller.DeleteStudent(studentID);
+		this->deleteStudentFromList();
 		break;
 	}
 
 	case 'a': {
-		cout << endl << "The students in alphabetic order are: " << endl;
-		resultVector = this->controller.AlphabeticList();
-		this->outputVector(resultVector);
+
+		this->outputListAlphabetically();
 		break;
 	}
 
 	case 'v': {
-		cout << endl << "The students in reverse alphabetic order are: "
-				<< endl;
-		resultVector = this->controller.ReverseAlphabetic();
-		this->outputVector(resultVector);
+
+		this->reverseList();
 		break;
 	}
 
 	case 'g': {
-		cout << endl << "The students in grade ascending are: " << endl;
-		resultVector = this->controller.GradeAscending();
-		this->outputVector(resultVector);
+
+		this->outputAscendingGrades();
 		break;
 	}
 
 	case 'c': {
-		cout << endl << "The students in grade descending are: " << endl;
-		resultVector = this->controller.GradeDescending();
-		this->outputVector(resultVector);
+
+		this->outputDescendingGrades();
 		break;
 	}
 
 	case 'q': {
+
 		cout << endl << "Good bye." << endl;
 		exit(0);
 		break;
@@ -256,9 +328,12 @@ void GradeBraiderTUI::handleResponse(string response, string file) {
  */
 string GradeBraiderTUI::lowerCaseString(string input) {
 
-	for (int i = 0; input[i]; i++) {
+	for (int i = 0; i < input.size(); i++) {
 		input[i] = tolower(input[i]);
 	}
+
+	input[0] = toupper(input[0]);
+
 	return input;
 }
 

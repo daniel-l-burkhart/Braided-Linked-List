@@ -7,8 +7,10 @@
 
 #ifndef VIEW_GRADEBRAIDERTUI_H_
 #define VIEW_GRADEBRAIDERTUI_H_
-#include <GradeBraiderController.h>
-#include <Student.h>
+
+#include "GradeBraiderController.h"
+#include "Student.h"
+
 #include <string>
 #include <vector>
 
@@ -32,6 +34,17 @@ private:
 	bool fileExists(string file);
 
 	void handleResponse(string response, string file);
+
+	void handleFileLoad();
+
+	void insertStudentIntoList();
+	void deleteStudentFromList();
+
+	void outputListAlphabetically();
+	void reverseList();
+	void outputAscendingGrades();
+	void outputDescendingGrades();
+	void saveListToFile();
 
 public:
 	GradeBraiderTUI();

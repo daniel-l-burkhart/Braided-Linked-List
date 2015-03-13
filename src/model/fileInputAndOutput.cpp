@@ -5,8 +5,9 @@
  *      Author: dburkha1
  */
 
-#include <fileInputAndOutput.h>
-#include <Student.h>
+#include "fileInputAndOutput.h"
+#include "Student.h"
+
 #include <cstdlib>
 #include <fstream>
 #include <string>
@@ -32,6 +33,14 @@ fileInputAndOutput::~fileInputAndOutput() {
 
 }
 
+/**
+ * Helper method that deals with each line of the file load in.
+ *
+ * @param input
+ * the input file.
+ * @return
+ * A vector of Student objects to be inserted to the linked list.
+ */
 vector<Student> fileInputAndOutput::getLineFromFile(ifstream& input) {
 	vector<string> stringVector;
 
@@ -46,12 +55,38 @@ vector<Student> fileInputAndOutput::getLineFromFile(ifstream& input) {
 
 		int grade = atof(stringVector[3].c_str());
 
+		stringVector[0] = this->stringToLower(stringVector[0]);
+		stringVector[1] = this->stringToLower(stringVector[1]);
+
 		Student currentStudent = Student(stringVector[0], stringVector[1],
 				stringVector[2], grade, 0, 0);
 
 		studentVector.push_back(currentStudent);
 	}
 	return studentVector;
+}
+
+/**
+ * Helper method to keep all names in the list
+ * whether inserted or loaded the same format
+ * for sorting.
+ *
+ * @param name
+ * The passed in name.
+ * @return
+ * a lowercase representation of the string
+ * with the first letter of the name capitalized.
+ */
+string fileInputAndOutput::stringToLower(string name) {
+
+	for (int i = 0; i < name.size(); i++) {
+
+		name[i] = tolower(name[i]);
+	}
+
+	name[0] = toupper(name[0]);
+
+	return name;
 }
 
 /**
@@ -104,8 +139,8 @@ vector<string> fileInputAndOutput::split(string line, char c) {
  * saves current list of students to file
  * @param file
  * the file to be saved
- * @param pHead
- * the head pointer of the list.
+ * @param listOfStudents
+ * The list of students to be output to the file.
  */
 bool fileInputAndOutput::SaveToFile(string file,
 		vector<Student> listOfStudents) {
@@ -124,6 +159,7 @@ bool fileInputAndOutput::SaveToFile(string file,
 				<< listOfStudents[i].getGrade();
 		outputFile << '\n';
 	}
+
 	outputFile.close();
 	return true;
 

@@ -3,12 +3,12 @@
 // Author      : Daniel Burkhart
 // Version     :
 // Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
+// Description : Grade Braider application for Assignment 3
 //============================================================================
 
-#include <GradeBraiderTUI.h>
+#include "GradeBraiderTUI.h"
+
 #include <iostream>
-#include <vector>
 #include <string>
 
 using controller::GradeBraiderController;

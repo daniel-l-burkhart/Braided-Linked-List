@@ -8,7 +8,8 @@
 #ifndef MODEL_FILEINPUTANDOUTPUT_H_
 #define MODEL_FILEINPUTANDOUTPUT_H_
 
-#include <BraidedLinkedList.h>
+#include "BraidedLinkedList.h"
+
 #include <string>
 #include<vector>
 #include <fstream>
@@ -23,6 +24,8 @@ private:
 	BraidedLinkedList student;
 	vector<string> split(string line, char c);
 	vector<Student> getLineFromFile(ifstream& input);
+	string stringToLower(string name);
+
 	void writeStudentToFile(const vector<Student>& listOfStudents,
 			const ofstream& outputFile);
 
