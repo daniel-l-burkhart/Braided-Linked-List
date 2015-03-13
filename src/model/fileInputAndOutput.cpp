@@ -118,6 +118,7 @@ vector<Student> fileInputAndOutput::LoadFromFile(string file) {
  * the vector of data from the line
  */
 vector<string> fileInputAndOutput::split(string line, char c) {
+
 	vector<string> studentData;
 	int i = 0;
 	int delimiter = line.find(c);

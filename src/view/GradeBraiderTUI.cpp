@@ -72,7 +72,8 @@ void GradeBraiderTUI::mainMenu() {
 			<< "Please enter the desired action: (l)oad file, (s)ave file, "
 			<< endl
 			<< "(i)nsert, (d)elete, (a)lphabetic, re(v)erse alphabetic, "
-			<< endl << "(g)rade ascending, grade des(c)ending, (q)uit >";
+			<< endl
+			<< "(g)rade ascending, grade des(c)ending, (q)uit >";
 }
 
 /**
@@ -153,8 +154,10 @@ void GradeBraiderTUI::insertStudentIntoList() {
  */
 void GradeBraiderTUI::deleteStudentFromList() {
 	string studentID;
+
 	cout << endl << "Please enter the student ID of the " << endl
 			<< "student you would like to remove." << endl;
+
 	cin >> studentID;
 	cout << endl << this->controller.DeleteStudent(studentID);
 }
@@ -164,8 +167,11 @@ void GradeBraiderTUI::deleteStudentFromList() {
  */
 void GradeBraiderTUI::outputListAlphabetically() {
 	vector<Student> alphabeticVector;
+
 	cout << endl << "The students in alphabetic order are: " << endl;
+
 	alphabeticVector = this->controller.AlphabeticList();
+
 	this->outputVector(alphabeticVector);
 }
 
@@ -173,9 +179,13 @@ void GradeBraiderTUI::outputListAlphabetically() {
  * Generates a reversed sorted order based on the last name.
  */
 void GradeBraiderTUI::reverseList() {
+
 	vector<Student> reverseVector;
+
 	cout << endl << "The students in reverse alphabetic order are: " << endl;
+
 	reverseVector = this->controller.ReverseAlphabetic();
+
 	this->outputVector(reverseVector);
 }
 
@@ -183,10 +193,13 @@ void GradeBraiderTUI::reverseList() {
  * Helper method to output a sorting of the list with the grades ascending.
  */
 void GradeBraiderTUI::outputAscendingGrades() {
+
 	vector<Student> ascendingVector;
+
 	cout << endl << "The students in grade ascending are: " << endl;
 
 	ascendingVector = this->controller.GradeAscending();
+
 	this->outputVector(ascendingVector);
 }
 
@@ -194,9 +207,13 @@ void GradeBraiderTUI::outputAscendingGrades() {
  * Helper method that outputs the list in descending order.
  */
 void GradeBraiderTUI::outputDescendingGrades() {
+
 	vector<Student> descendingVector;
+
 	cout << endl << "The students in grade descending are: " << endl;
+
 	descendingVector = this->controller.GradeDescending();
+
 	this->outputVector(descendingVector);
 }
 
@@ -228,6 +245,7 @@ void GradeBraiderTUI::saveListToFile() {
  * the input string from the user.
  */
 void GradeBraiderTUI::handleSelection(string input) {
+
 	char userInput;
 	userInput = input[0];
 	userInput = tolower(userInput);

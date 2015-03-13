@@ -20,6 +20,13 @@ BraidedLinkedList::BraidedLinkedList() {
 
 }
 
+/**
+ * Checks if the previous node exists or not
+ * @param pPrevious
+ * The previous node
+ * @param pStudent
+ * The student node being added to the list
+ */
 void BraidedLinkedList::checkForPreviousName(Student* pPrevious,
 		Student* pStudent) {
 
@@ -67,7 +74,7 @@ void BraidedLinkedList::insertStudentName(Student *pStudent) {
 
 /**
  * Checks if the previous grade is valid in order to
- * cause deletion to work successfully.
+ * cause insertion to work successfully.
  * @param pPrevious
  * the previous node.
  * @param pStudent
@@ -75,9 +82,12 @@ void BraidedLinkedList::insertStudentName(Student *pStudent) {
  */
 void BraidedLinkedList::checkForPreviousGrade(Student* pPrevious,
 		Student* pStudent) {
+
 	if (!pPrevious) {
 		this->pHeadGrade = pStudent;
-	} else {
+	}
+
+	else {
 		pPrevious->nextGrade = pStudent;
 	}
 }
@@ -129,11 +139,15 @@ Student* BraidedLinkedList::findStudentWithID(const string& studentID) {
 	Student* pStudentToDelete = 0;
 	Student* pCurrent;
 	pCurrent = this->pHeadName;
+
 	while (pCurrent != 0) {
+
 		if (pCurrent->getId() == studentID) {
 			pStudentToDelete = pCurrent;
 			break;
-		} else {
+		}
+
+		else {
 			Student* temp = pCurrent;
 			pCurrent = temp->nextName;
 		}
@@ -147,8 +161,10 @@ Student* BraidedLinkedList::findStudentWithID(const string& studentID) {
  * The pointer to be deleted.
  */
 void BraidedLinkedList::deleteAtHead(Student* pDeletePtr) {
+
 	pDeletePtr = this->pHeadName;
 	this->pHeadName = pDeletePtr->nextName;
+
 	delete pDeletePtr;
 	pDeletePtr = 0;
 }
@@ -308,7 +324,9 @@ void BraidedLinkedList::makeGradeVector(Student* pCurrent,
 		vector<Student>& studentGrades) {
 
 	while (pCurrent != 0) {
+
 		studentGrades.push_back(*pCurrent);
+
 		Student* temp = pCurrent;
 		pCurrent = temp->nextGrade;
 	}
@@ -340,6 +358,7 @@ vector<Student> BraidedLinkedList::ReverseList() {
 	vector<Student> resultingVector = vector<Student>();
 
 	this->makeReverseNameVector(this->pHeadName);
+
 	resultingVector = this->reversedList;
 
 	this->reversedList.clear();
@@ -389,7 +408,9 @@ vector<Student> BraidedLinkedList::DescendingGrades() {
 	vector<Student> gradesReversed = vector<Student>();
 
 	this->makeGradeDescendVector(this->pHeadGrade);
+
 	gradesReversed = this->reversedGrades;
+
 	this->reversedGrades.clear();
 
 	return gradesReversed;

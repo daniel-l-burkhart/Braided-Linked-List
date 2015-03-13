@@ -45,6 +45,7 @@ private:
 	void deleteAtHead(Student* pDeletePtr);
 
 public:
+
 	BraidedLinkedList();
 	virtual ~BraidedLinkedList();
 

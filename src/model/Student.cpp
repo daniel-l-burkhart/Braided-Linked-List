@@ -13,9 +13,9 @@ namespace model {
  * Constructor of the class
  */
 Student::Student() {
-	grade = 0;
-	nextName = 0;
-	nextGrade = 0;
+	this->grade = 0;
+	this->nextName = 0;
+	this->nextGrade = 0;
 
 }
 
