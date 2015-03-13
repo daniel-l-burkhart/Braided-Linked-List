@@ -42,7 +42,8 @@ private:
 	void clearList();
 
 	Student* findStudentWithID(const string& studentID);
-	void deleteAtHead(Student* pDeletePtr);
+
+	void deleteAtHead(Student* pDeletePtr, Student* pDeletePtrGrade);
 
 public:
 

@@ -235,7 +235,7 @@ void GradeBraiderTUI::saveListToFile() {
 	}
 
 	else {
-		this->controller.SaveFile(file);
+		cout << endl << this->controller.SaveFile(file) << endl;
 	}
 }
 
@@ -331,7 +331,7 @@ void GradeBraiderTUI::handleResponse(string response, string file) {
 	char yesOrNo = tolower(response[0]);
 
 	if (yesOrNo == 'y') {
-		this->controller.SaveFile(file);
+		cout << endl << this->controller.SaveFile(file) << endl;
 	} else {
 		return;
 	}
@@ -346,7 +346,7 @@ void GradeBraiderTUI::handleResponse(string response, string file) {
  */
 string GradeBraiderTUI::lowerCaseString(string input) {
 
-	for (int i = 0; i < input.size(); i++) {
+	for (string::size_type i = 0; i < input.size(); i++) {
 		input[i] = tolower(input[i]);
 	}
 

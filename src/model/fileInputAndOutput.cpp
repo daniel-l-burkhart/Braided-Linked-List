@@ -79,7 +79,7 @@ vector<Student> fileInputAndOutput::getLineFromFile(ifstream& input) {
  */
 string fileInputAndOutput::stringToLower(string name) {
 
-	for (int i = 0; i < name.size(); i++) {
+	for (string::size_type i = 0; i < name.size(); i++) {
 
 		name[i] = tolower(name[i]);
 	}

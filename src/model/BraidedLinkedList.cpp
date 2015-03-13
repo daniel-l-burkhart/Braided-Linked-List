@@ -6,6 +6,7 @@
  */
 
 #include "BraidedLinkedList.h"
+#include <iostream>
 
 using namespace std;
 
@@ -160,10 +161,13 @@ Student* BraidedLinkedList::findStudentWithID(const string& studentID) {
  * @param pDeletePtr
  * The pointer to be deleted.
  */
-void BraidedLinkedList::deleteAtHead(Student* pDeletePtr) {
+void BraidedLinkedList::deleteAtHead(Student* pDeletePtr, Student* pDeletePtrGrade) {
 
 	pDeletePtr = this->pHeadName;
+	pDeletePtrGrade = this->pHeadGrade;
+
 	this->pHeadName = pDeletePtr->nextName;
+	this->pHeadGrade = pDeletePtrGrade->nextGrade;
 
 	delete pDeletePtr;
 	pDeletePtr = 0;
@@ -182,9 +186,12 @@ bool BraidedLinkedList::DeleteStudentName(string studentID) {
 
 	Student *pPrevious = 0;
 	Student *pDeletePtr = 0;
+	Student *pDeletePtrGrade = 0;
 
 	if (this->pHeadName == pStudentToDelete) {
-		this->deleteAtHead(pDeletePtr);
+
+		this->deleteAtHead(pDeletePtr, pDeletePtrGrade);
+
 		return true;
 	}
 
