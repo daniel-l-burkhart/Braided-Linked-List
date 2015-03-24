@@ -47,7 +47,7 @@ void BraidedLinkedList::checkForPreviousName(Student* pPrevious,
  */
 void BraidedLinkedList::insertStudentName(Student *pStudent) {
 
-	if (this->pHeadName == 0) {
+	if (!this->pHeadName) {
 		this->pHeadName = pStudent;
 		return;
 	}
@@ -100,7 +100,7 @@ void BraidedLinkedList::checkForPreviousGrade(Student* pPrevious,
  */
 void BraidedLinkedList::insertStudentGrade(Student *pStudent) {
 
-	if (this->pHeadGrade == 0) {
+	if (!this->pHeadGrade) {
 		this->pHeadGrade = pStudent;
 
 		return;
@@ -141,11 +141,11 @@ Student* BraidedLinkedList::findStudentWithID(const string& studentID) {
 	Student* pCurrent;
 	pCurrent = this->pHeadName;
 
-	while (pCurrent != 0) {
+	while (pCurrent) {
 
 		if (pCurrent->getId() == studentID) {
 			pStudentToDelete = pCurrent;
-			break;
+			return pStudentToDelete;
 		}
 
 		else {
@@ -198,7 +198,7 @@ bool BraidedLinkedList::DeleteStudentName(string studentID) {
 	pPrevious = this->pHeadName;
 	pDeletePtr = this->pHeadName->nextName;
 
-	while (pDeletePtr != 0) {
+	while (pDeletePtr) {
 
 		if (pDeletePtr == pStudentToDelete) {
 
@@ -207,7 +207,7 @@ bool BraidedLinkedList::DeleteStudentName(string studentID) {
 			delete pDeletePtr;
 			pDeletePtr = 0;
 			return true;
-			break;
+
 		}
 		pPrevious = pDeletePtr;
 		pDeletePtr = pDeletePtr->nextName;
@@ -262,15 +262,15 @@ void BraidedLinkedList::CreateListFromFile(vector<Student> vectorOfStudents) {
  */
 void BraidedLinkedList::clearList() {
 
-	Student *pDel = this->pHeadName;
+	Student *pDelete = this->pHeadName;
 
-	while (pDel != 0) {
+	while (pDelete) {
 
 		this->pHeadName = this->pHeadName->nextName;
 
-		delete pDel;
-		pDel = 0;
-		pDel = this->pHeadName;
+		delete pDelete;
+		pDelete = 0;
+		pDelete = this->pHeadName;
 	}
 
 	this->pHeadName = 0;
@@ -294,10 +294,10 @@ BraidedLinkedList::~BraidedLinkedList() {
 void BraidedLinkedList::makeNameVector(Student* pCurrent,
 		vector<Student>& students) {
 
-	while (pCurrent != 0) {
+	while (pCurrent) {
 		students.push_back(*pCurrent);
-		Student* temp = pCurrent;
-		pCurrent = temp->nextName;
+		Student* pTempPtr = pCurrent;
+		pCurrent = pTempPtr->nextName;
 	}
 }
 
@@ -310,7 +310,7 @@ void BraidedLinkedList::makeNameVector(Student* pCurrent,
 vector<Student> BraidedLinkedList::AlphabeticList() {
 	vector<Student> students = vector<Student>();
 
-	if (this->pHeadName != 0) {
+	if (this->pHeadName) {
 
 		Student *pCurrent = this->pHeadName;
 		this->makeNameVector(pCurrent, students);
@@ -330,7 +330,7 @@ vector<Student> BraidedLinkedList::AlphabeticList() {
 void BraidedLinkedList::makeGradeVector(Student* pCurrent,
 		vector<Student>& studentGrades) {
 
-	while (pCurrent != 0) {
+	while (pCurrent) {
 
 		studentGrades.push_back(*pCurrent);
 
@@ -347,7 +347,7 @@ void BraidedLinkedList::makeGradeVector(Student* pCurrent,
 vector<Student> BraidedLinkedList::AscendingGrades() {
 	vector<Student> studentGrades = vector<Student>();
 
-	if (this->pHeadGrade != 0) {
+	if (this->pHeadGrade) {
 
 		Student *pCurrent = this->pHeadGrade;
 
@@ -378,7 +378,8 @@ vector<Student> BraidedLinkedList::ReverseList() {
  * the current student pointer
  */
 void BraidedLinkedList::makeReverseNameVector(Student* pStudent) {
-	if (pStudent != 0) {
+
+	if (pStudent) {
 
 		this->makeReverseNameVector(pStudent->nextName);
 		this->reversedList.push_back(*pStudent);
@@ -395,7 +396,7 @@ void BraidedLinkedList::makeReverseNameVector(Student* pStudent) {
  * current student pointer to grade.
  */
 void BraidedLinkedList::makeGradeDescendVector(Student* pStudentGrade) {
-	if (pStudentGrade != 0) {
+	if (pStudentGrade) {
 
 		this->makeGradeDescendVector(pStudentGrade->nextGrade);
 		this->reversedGrades.push_back(*pStudentGrade);

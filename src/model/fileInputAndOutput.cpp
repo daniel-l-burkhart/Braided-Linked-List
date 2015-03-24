@@ -144,7 +144,7 @@ vector<string> fileInputAndOutput::split(string line, char c) {
  * The list of students to be output to the file.
  */
 bool fileInputAndOutput::SaveToFile(string file,
-		vector<Student> listOfStudents) {
+		vector<Student> students) {
 
 	ofstream outputFile(file.c_str());
 
@@ -153,12 +153,12 @@ bool fileInputAndOutput::SaveToFile(string file,
 		return false;
 	}
 
-	for (vector<string>::size_type i = 0; i < listOfStudents.size(); i++) {
-		outputFile << listOfStudents[i].getLastName() << ","
-				<< listOfStudents[i].getFirstName() << ","
-				<< listOfStudents[i].getId() << ","
-				<< listOfStudents[i].getGrade();
-		outputFile << '\n';
+	for (vector<string>::size_type i = 0; i < students.size(); i++) {
+		outputFile << students[i].getLastName() << ","
+				<< students[i].getFirstName() << ","
+				<< students[i].getId() << ","
+				<< students[i].getGrade();
+		outputFile << "\r\n";
 	}
 
 	outputFile.close();
